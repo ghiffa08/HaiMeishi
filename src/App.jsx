@@ -211,50 +211,15 @@ export default function App() {
     if (!s.isDragging) { s.rotX = 0; s.rotY = s.flipped ? 180 : 0; }
   }, [springRef]);
 
-  // ---- Share modal ----
-  const [shareOpen, setShareOpen] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const shareUrl = typeof window !== 'undefined'
-    ? `${window.location.origin}/#/about`
-    : '';
-
-  const openShare = useCallback(() => setShareOpen(true), []);
-  const closeShare = useCallback(() => setShareOpen(false), []);
-
-  const shareToWhatsApp = useCallback(() => {
-    const text = encodeURIComponent(`${PROFILE.nameEn} — Digital Business Card\n${shareUrl}`);
-    window.open(`https://wa.me/?text=${text}`, '_blank');
-    closeShare();
-  }, [shareUrl, closeShare]);
-
-  const shareToTwitter = useCallback(() => {
-    const text = encodeURIComponent(`${PROFILE.nameEn} — ${PROFILE.brand}`);
-    window.open(`https://twitter.com/intent/tweet?text=${text}&url=${encodeURIComponent(shareUrl)}`, '_blank');
-    closeShare();
-  }, [shareUrl, closeShare]);
-
-  const copyLink = useCallback(async () => {
-    await navigator.clipboard.writeText(shareUrl);
-    setCopied(true);
-    setTimeout(() => { setCopied(false); closeShare(); }, 1400);
-  }, [shareUrl, closeShare]);
-
-  const nativeShare = useCallback(async () => {
-    if (!navigator.share) return;
-    try { await navigator.share({ title: `${PROFILE.nameEn} — ${PROFILE.brand}`, url: shareUrl }); }
-    catch (_) { /* cancelled */ }
-    closeShare();
-  }, [shareUrl, closeShare]);
-
-  const shareToInstagram = useCallback(async () => {
-    try { await navigator.clipboard.writeText(shareUrl); } catch (e) { /* ignore */ }
-    setCopied(true);
-    setTimeout(() => {
-      setCopied(false);
-      window.location.href = 'instagram://camera';
-      closeShare();
-    }, 1500);
-  }, [shareUrl, closeShare]);
+  // ---- Share ----
+  const handleShare = useCallback(async () => {
+    if (navigator.share) {
+      try { await navigator.share({ title: PROFILE.brand, url: window.location.href }); }
+      catch (_) { /* cancelled */ }
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+    }
+  }, []);
 
   const handleFlip = useCallback(() => {
     setFlipped(f => { const next = !f; springRef.current.flipped = next; return next; });
@@ -269,7 +234,7 @@ export default function App() {
           <h1>HaiMeishi</h1>
           <p>Digital Business Card</p>
         </div>
-        <button className="share-btn" onClick={openShare} aria-label="Bagikan">
+        <button className="share-btn" onClick={handleShare} aria-label="Bagikan">
           <Share2 size={18} />
         </button>
       </div>
@@ -305,45 +270,7 @@ export default function App() {
         <p className="hint">Seret · Putar · Ketuk untuk membalik</p>
       </div>
 
-      {/* Share modal */}
-      {shareOpen && (
-        <div className="share-backdrop" onClick={closeShare}>
-          <div className="share-sheet" onClick={e => e.stopPropagation()}>
-            <div className="share-sheet-handle" />
-            <p className="share-sheet-title">Bagikan Kartu</p>
-            <p className="share-sheet-url">{shareUrl}</p>
 
-            <div className="share-options">
-              <button className="share-option" onClick={shareToWhatsApp}>
-                <span className="share-option-icon" style={{ background: '#25D366' }}>W</span>
-                <span>WhatsApp</span>
-              </button>
-              <button className="share-option" onClick={shareToTwitter}>
-                <span className="share-option-icon" style={{ background: '#000' }}>𝕏</span>
-                <span>Twitter / X</span>
-              </button>
-              <button className="share-option" onClick={shareToInstagram}>
-                <span className="share-option-icon" style={{ background: 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)' }}>IG</span>
-                <span>IG Story</span>
-              </button>
-              {navigator.share && (
-                <button className="share-option" onClick={nativeShare}>
-                  <span className="share-option-icon" style={{ background: '#1a62d4' }}>↗</span>
-                  <span>Lainnya…</span>
-                </button>
-              )}
-              <button className="share-option" onClick={copyLink}>
-                <span className="share-option-icon" style={{ background: copied ? '#22c55e' : '#4a4540' }}>
-                  {copied ? '✓' : '⎘'}
-                </span>
-                <span>{copied ? 'Tersalin!' : 'Salin Link'}</span>
-              </button>
-            </div>
-
-            <button className="share-cancel" onClick={closeShare}>Batal</button>
-          </div>
-        </div>
-      )}
 
     </div>
   );
