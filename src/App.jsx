@@ -232,10 +232,11 @@ export default function App() {
         onclone: (clonedDoc) => {
           if (isFlipped) {
             // Remove the 180deg rotation from the cloned back face so it renders correctly (not mirrored)
-            const clonedFace = clonedDoc.querySelector('.face-back');
-            if (clonedFace) {
-              clonedFace.style.transform = 'none';
-            }
+            // Sometimes html2canvas applies it from styles, we can enforce it:
+            const clonedFaces = clonedDoc.querySelectorAll('.face-back');
+            clonedFaces.forEach(f => {
+              f.style.setProperty('transform', 'none', 'important');
+            });
           }
         }
       });
@@ -243,16 +244,18 @@ export default function App() {
       canvas.toBlob(async (blob) => {
         if (!blob) throw new Error('Canvas to Blob failed');
         const file = new File([blob], 'digital-business-card.png', { type: 'image/png' });
+        const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
 
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
           await navigator.share({
             files: [file],
             title: PROFILE.brand,
             text: `Connect with me! #DigitalBusinessCard`,
+            url: shareUrl,
           });
         } else if (navigator.share) {
           // Fallback 1: Share link natively
-          await navigator.share({ title: PROFILE.brand, url: window.location.href });
+          await navigator.share({ title: PROFILE.brand, url: shareUrl });
         } else {
           // Fallback 2: Copy link
           await navigator.clipboard.writeText(window.location.href);
