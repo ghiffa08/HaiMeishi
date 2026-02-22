@@ -578,3 +578,132 @@
     color: rgba(255, 255, 255, 0.16);
     text-align: center;
 }
+
+/* ===== SHARE MODAL ===== */
+.share-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 100;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.share-sheet {
+    width: 100%;
+    max-width: 500px;
+    background: var(--paper);
+    border-radius: 24px 24px 0 0;
+    padding: 12px 24px 32px;
+    transform: translateY(0);
+    animation: slideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    display: flex;
+    flex-direction: column;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+.share-sheet-handle {
+    width: 40px;
+    height: 4px;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 2px;
+    margin: 0 auto 20px;
+}
+
+.share-sheet-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    text-align: center;
+    margin-bottom: 4px;
+}
+
+.share-sheet-url {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--tan);
+    text-align: center;
+    margin-bottom: 24px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.share-options {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.share-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--ink);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: transform 0.1s;
+    width: 65px;
+}
+
+.share-option:active {
+    transform: scale(0.9);
+}
+
+.share-option-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.share-cancel {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    background: rgba(0, 0, 0, 0.05);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink);
+    cursor: pointer;
+}
