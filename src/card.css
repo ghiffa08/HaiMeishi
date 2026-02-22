@@ -552,9 +552,9 @@
 }
 
 .btn-save {
-    background: var(--red);
+    background: var(--accent);
     color: white;
-    box-shadow: 0 4px 20px rgba(192, 57, 43, 0.35);
+    box-shadow: 0 4px 20px rgba(26, 98, 212, 0.35);
 }
 
 .socials {

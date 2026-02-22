@@ -15,6 +15,7 @@ function useCardSpring(cardInnerRef, cardSceneRef) {
     targetX: 0,
     targetY: 0,
     isDragging: false,
+    isHovering: false,
     didDrag: false,
     startX: 0,
     startY: 0,
@@ -28,11 +29,16 @@ function useCardSpring(cardInnerRef, cardSceneRef) {
     const s = st.current;
 
     const tick = () => {
-      if (!s.isDragging) {
+      if (!s.isDragging && !s.isHovering) {
         const tY = s.flipped ? 180 : 0;
-        s.rotX += (0 - s.rotX) * 0.1;
-        s.rotY += (tY - s.rotY) * 0.1;
+        s.targetX = 0;
+        s.targetY = tY;
       }
+
+      // Fast lerp when dragging to feel responsive, slower when snapped back
+      const lerpSpeed = s.isDragging ? 0.35 : 0.08;
+      s.rotX += (s.targetX - s.rotX) * lerpSpeed;
+      s.rotY += (s.targetY - s.rotY) * lerpSpeed;
 
       if (cardInnerRef.current) {
         cardInnerRef.current.style.transform =
@@ -45,7 +51,7 @@ function useCardSpring(cardInnerRef, cardSceneRef) {
         cardInnerRef.current.querySelectorAll('.face').forEach(f => {
           f.style.setProperty('--mx', `${mx}%`);
           f.style.setProperty('--my', `${my}%`);
-          f.style.setProperty('--shine', shine);
+          f.style.setProperty('--shine', shine.toString());
         });
       }
 
@@ -93,11 +99,11 @@ const CardFront = () => (
       </div>
 
       <div className="front-footer">
-        <span className="tagline">創造 · 革新 · 誠実 — Creativity · Innovation · Integrity</span>
+        <span className="tagline">創造 · 革新 · 解決 — Creativity · Innovation · Solution</span>
         <span className="est-mark">Est. {PROFILE.est}</span>
       </div>
     </div>
-  </div>
+  </div >
 );
 
 // =====================
@@ -160,11 +166,14 @@ export default function App() {
   const onPointerDown = useCallback((e) => {
     const s = springRef.current;
     s.isDragging = true;
+    s.isHovering = false;
     s.didDrag = false;
     s.startX = e.clientX;
     s.startY = e.clientY;
     s.startRotX = s.rotX;
     s.startRotY = s.rotY;
+    s.targetX = s.rotX;
+    s.targetY = s.rotY;
     e.currentTarget.setPointerCapture(e.pointerId);
     cardSceneRef.current?.classList.add('is-grabbing');
   }, [springRef]);
@@ -175,8 +184,9 @@ export default function App() {
     const dx = e.clientX - s.startX;
     const dy = e.clientY - s.startY;
     if (Math.abs(dx) > 5 || Math.abs(dy) > 5) s.didDrag = true;
-    s.rotY = s.startRotY + dx * 0.28;
-    s.rotX = s.startRotX - dy * 0.13;
+    // Set target, not absolute rot, for buttery smooth lerping on low polling touch devices
+    s.targetY = s.startRotY + dx * 0.28;
+    s.targetX = s.startRotX - dy * 0.13;
   }, [springRef]);
 
   const onPointerUp = useCallback(() => {
@@ -187,10 +197,9 @@ export default function App() {
     if (!s.didDrag) {
       setFlipped(f => { const next = !f; s.flipped = next; return next; });
     } else {
-      const normY = ((s.rotY % 360) + 360) % 360;
+      const normY = ((s.targetY % 360) + 360) % 360;
       const toBack = normY > 90 && normY < 270;
       s.flipped = toBack;
-      s.rotX = 0;
       setFlipped(toBack);
     }
   }, [springRef]);
@@ -203,13 +212,16 @@ export default function App() {
     if (!rect) return;
     const rx = (e.clientX - rect.left) / rect.width - 0.5;
     const ry = (e.clientY - rect.top) / rect.height - 0.5;
-    s.rotY = (s.flipped ? 180 : 0) + rx * 18;
-    s.rotX = -ry * 12;
+    s.isHovering = true;
+    s.targetY = (s.flipped ? 180 : 0) + rx * 18;
+    s.targetX = -ry * 12;
   }, [springRef]);
 
   const onMouseLeave = useCallback(() => {
     const s = springRef.current;
-    if (!s.isDragging) { s.rotX = 0; s.rotY = s.flipped ? 180 : 0; }
+    if (!s.isDragging) {
+      s.isHovering = false;
+    }
   }, [springRef]);
   // ---- Share ----
   const [isSharing, setIsSharing] = useState(false);
