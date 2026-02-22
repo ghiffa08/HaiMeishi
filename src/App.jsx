@@ -219,10 +219,25 @@ export default function App() {
     setIsSharing(true); // Loading state
 
     try {
-      const canvas = await html2canvas(cardInnerRef.current, {
+      const isFlipped = springRef.current.flipped;
+      const faceSelector = isFlipped ? '.face-back' : '.face:not(.face-back)';
+      const faceNode = cardInnerRef.current.querySelector(faceSelector);
+
+      if (!faceNode) throw new Error('Face node not found');
+
+      const canvas = await html2canvas(faceNode, {
         backgroundColor: null,
         scale: 2, // High res sharing
         useCORS: true,
+        onclone: (clonedDoc) => {
+          if (isFlipped) {
+            // Remove the 180deg rotation from the cloned back face so it renders correctly (not mirrored)
+            const clonedFace = clonedDoc.querySelector('.face-back');
+            if (clonedFace) {
+              clonedFace.style.transform = 'none';
+            }
+          }
+        }
       });
 
       canvas.toBlob(async (blob) => {
