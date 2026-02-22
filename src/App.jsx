@@ -231,26 +231,15 @@ export default function App() {
     setIsSharing(true); // Loading state
 
     try {
-      const isFlipped = springRef.current.flipped;
-      const faceSelector = isFlipped ? '.face-back' : '.face:not(.face-back)';
-      const faceNode = cardInnerRef.current.querySelector(faceSelector);
+      // Selalu ambil gambar bagian depan kartu (front face) agar hasilnya selalu bagus dan tidak terbalik
+      const faceNode = cardInnerRef.current.querySelector('.face:not(.face-back)');
 
       if (!faceNode) throw new Error('Face node not found');
 
       const canvas = await html2canvas(faceNode, {
         backgroundColor: null,
         scale: 2, // High res sharing
-        useCORS: true,
-        onclone: (clonedDoc) => {
-          if (isFlipped) {
-            // Remove the 180deg rotation from the cloned back face so it renders correctly (not mirrored)
-            // Sometimes html2canvas applies it from styles, we can enforce it:
-            const clonedFaces = clonedDoc.querySelectorAll('.face-back');
-            clonedFaces.forEach(f => {
-              f.style.setProperty('transform', 'none', 'important');
-            });
-          }
-        }
+        useCORS: true
       });
 
       canvas.toBlob(async (blob) => {
