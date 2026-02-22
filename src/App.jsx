@@ -226,56 +226,60 @@ export default function App() {
   // ---- Share ----
   const [isSharing, setIsSharing] = useState(false);
 
-  const handleShare = useCallback(async () => {
+  const handleShare = useCallback(() => {
     if (!cardInnerRef.current) return;
     setIsSharing(true); // Loading state
 
-    try {
-      // Selalu ambil gambar bagian depan kartu (front face) agar hasilnya selalu bagus dan tidak terbalik
-      const faceNode = cardInnerRef.current.querySelector('.face:not(.face-back)');
+    // Memberikan jeda 50ms agar React sempat menggambar icon loading (...) ke layar
+    // sebelum html2canvas mengambil alih Main Thread (yang akan membuat frame membeku sesaat)
+    setTimeout(async () => {
+      try {
+        // Selalu ambil gambar bagian depan kartu (front face) agar hasilnya selalu bagus dan tidak terbalik
+        const faceNode = cardInnerRef.current.querySelector('.face:not(.face-back)');
 
-      if (!faceNode) throw new Error('Face node not found');
+        if (!faceNode) throw new Error('Face node not found');
 
-      const canvas = await html2canvas(faceNode, {
-        backgroundColor: null,
-        scale: 2, // High res sharing
-        useCORS: true
-      });
+        const canvas = await html2canvas(faceNode, {
+          backgroundColor: null,
+          scale: 2, // High res sharing
+          useCORS: true
+        });
 
-      canvas.toBlob(async (blob) => {
-        if (!blob) throw new Error('Canvas to Blob failed');
-        const file = new File([blob], 'digital-business-card.png', { type: 'image/png' });
-        const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
+        canvas.toBlob(async (blob) => {
+          if (!blob) throw new Error('Canvas to Blob failed');
+          const file = new File([blob], 'digital-business-card.png', { type: 'image/png' });
+          const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
 
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-          await navigator.share({
-            files: [file],
-            title: PROFILE.brand,
-            text: `Hi! Here is my Digital Business Card. Let's start building something great together. 🚀`,
-            url: shareUrl,
-          });
-        } else if (navigator.share) {
-          // Fallback 1: Share link natively
-          await navigator.share({ title: PROFILE.brand, text: `Hi! Here is my Digital Business Card. Let's start building something great together. 🚀`, url: shareUrl });
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({
+              files: [file],
+              title: PROFILE.brand,
+              text: `Hi! Here is my Digital Business Card. Let's start building something great together. 🚀`,
+              url: shareUrl,
+            });
+          } else if (navigator.share) {
+            // Fallback 1: Share link natively
+            await navigator.share({ title: PROFILE.brand, text: `Hi! Here is my Digital Business Card. Let's start building something great together. 🚀`, url: shareUrl });
+          } else {
+            // Fallback 2: Copy link
+            await navigator.clipboard.writeText(shareUrl);
+            alert('Link disalin ke clipboard!');
+          }
+          setIsSharing(false);
+        }, 'image/png');
+
+      } catch (e) {
+        console.error('Share failed', e);
+        // Fallback if canvas fails
+        if (navigator.share) {
+          try { await navigator.share({ title: PROFILE.brand, url: window.location.href }); } catch (_) { }
         } else {
-          // Fallback 2: Copy link
           await navigator.clipboard.writeText(window.location.href);
           alert('Link disalin ke clipboard!');
         }
         setIsSharing(false);
-      }, 'image/png');
-
-    } catch (e) {
-      console.error('Share failed', e);
-      // Fallback if canvas fails
-      if (navigator.share) {
-        try { await navigator.share({ title: PROFILE.brand, url: window.location.href }); } catch (_) { }
-      } else {
-        await navigator.clipboard.writeText(window.location.href);
-        alert('Link disalin ke clipboard!');
       }
-      setIsSharing(false);
-    }
+    }, 50);
   }, []);
 
   const handleFlip = useCallback(() => {
