@@ -7,8 +7,8 @@ import PROFILE from './profile.json';
 // =====================
 const LINKS = [
     { name: 'Portfolio', sub: 'ghiffa.dev', type: 'Web', arrow: '→', href: 'https://ghiffa.dev' },
-    { name: 'GitHub', sub: '@ghiffa', type: 'Code', arrow: '→', href: 'https://github.com/ghiffa' },
-    { name: 'LinkedIn', sub: 'Professional Network', type: 'Profile', arrow: '→', href: 'https://linkedin.com/in/haikal-jibran' },
+    { name: 'GitHub', sub: '@ghiffa', type: 'Code', arrow: '→', href: 'https://github.com/ghiffa08' },
+    { name: 'LinkedIn', sub: 'Professional Network', type: 'Profile', arrow: '→', href: 'https://www.linkedin.com/in/haikal-jibran-al-ghiffarry' },
     { name: 'Instagram', sub: '@haikaljibrn__', type: 'Social', arrow: '→', href: 'https://www.instagram.com/haikaljibrn__' },
     { name: 'Email', sub: PROFILE.mail, type: 'Mail', arrow: '→', href: `mailto:${PROFILE.mail}` },
 ];
@@ -60,15 +60,31 @@ export default function Landing() {
                     <div className="l-section-rule" />
                 </div>
                 <div className="l-bio">
-                    <p className="l-bio-text">
-                        Fullstack developer based in {PROFILE.city}, building clean and functional web
-                        applications under the {PROFILE.brand} umbrella. Focused on crafting systems that
-                        are both technically sound and visually refined — from backend APIs to
-                        pixel-perfect interfaces.
-                    </p>
-                    <p className="l-bio-jp">
-                        フルスタック開発者 &nbsp;·&nbsp; バックエンドからフロントエンドまで<br />
-                        クリーンで機能的なウェブシステムを構築
+                    <div className="l-bio-text" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                        <p>
+                            An Informatics Engineering student with a passion for building tangible solutions at the intersection of Web Development, the Internet of Things (IoT), and Robotics. As the Head of the IoT and Robotics Division at my faculty, I lead a team to drive innovation and foster collaboration in these dynamic fields.
+                        </p>
+                        <p>
+                            <strong>Key Achievements & Experience:</strong>
+                        </p>
+                        <ul style={{ paddingLeft: '16px', margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                            <li>
+                                <strong>Social Impact through IoT:</strong> Co-developed "Smart Coffee Monitoring," an IoT solution that significantly increased productivity for coffee farmers, demonstrating a strong commitment to creating technology with a real-world social impact.
+                            </li>
+                            <li>
+                                <strong>Entrepreneurial Leadership:</strong> Co-founded "REThreee," a marketplace application for recycled product artisans. This initiative won 1st Place in the UBC Business Plan Competition and was selected as a finalist in the prestigious Astra Vocapreneur Program.
+                            </li>
+                            <li>
+                                <strong>Proven Technical Expertise:</strong> Graduated top of my class in Software Engineering, supported by certifications as a Junior Web Developer and a Highly Competent Junior Web Programmer.
+                            </li>
+                        </ul>
+                        <p>
+                            I am eager to apply my technical skills, leadership experience, and entrepreneurial spirit to a new challenge. Let's connect to explore how I can bring value to your organization.
+                        </p>
+                    </div>
+                    <p className="l-bio-jp" style={{ marginTop: '24px' }}>
+                        情報工学科の学生であり、IoT・ロボティクス部門の責任者。農家向けIoTやエコ市場アプリを共同開発し、受賞歴多数。<br />
+                        ソフトウェア工学を首席で卒業し、技術力とリーダーシップで新たな挑戦に貢献します。
                     </p>
                 </div>
 
@@ -112,11 +128,11 @@ export default function Landing() {
                     </a>
                     <div className="l-contact-cell">
                         <div className="l-cc-label">Location</div>
-                        <div className="l-cc-value">{PROFILE.city}, Jawa Barat, Indonesia</div>
+                        <div className="l-cc-value">{PROFILE.adr}</div>
                     </div>
                     <div className="l-contact-cell">
-                        <div className="l-cc-label">Office Hours</div>
-                        <div className="l-cc-value">Mon–Fri 09:00–17:00 WIB</div>
+                        <div className="l-cc-label">Focus Areas</div>
+                        <div className="l-cc-value">Web Dev, Mobile Dev, IoT & Robotics</div>
                     </div>
                 </div>
 

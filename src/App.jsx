@@ -250,7 +250,7 @@ export default function App() {
           await navigator.share({
             files: [file],
             title: PROFILE.brand,
-            text: `Connect with me! #DigitalBusinessCard`,
+            text: `Connect with me! `,
             url: shareUrl,
           });
         } else if (navigator.share) {
