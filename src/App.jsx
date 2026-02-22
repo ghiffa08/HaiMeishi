@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { Globe, Share2 } from 'lucide-react';
+import { Globe, Share2, Instagram } from 'lucide-react';
 
 import './card.css';
 import PROFILE from './profile.json';
@@ -210,8 +210,9 @@ export default function App() {
     const s = springRef.current;
     if (!s.isDragging) { s.rotX = 0; s.rotY = s.flipped ? 180 : 0; }
   }, [springRef]);
-
   // ---- Share ----
+  const [igCopied, setIgCopied] = useState(false);
+
   const handleShare = useCallback(async () => {
     if (navigator.share) {
       try { await navigator.share({ title: PROFILE.brand, url: window.location.href }); }
@@ -219,6 +220,16 @@ export default function App() {
     } else {
       navigator.clipboard.writeText(window.location.href);
     }
+  }, []);
+
+  const handleIgShare = useCallback(async () => {
+    const shareUrl = typeof window !== 'undefined' ? `${window.location.origin}/#/about` : '';
+    try { await navigator.clipboard.writeText(shareUrl); } catch (e) { /* ignore */ }
+    setIgCopied(true);
+    setTimeout(() => {
+      setIgCopied(false);
+      window.location.href = 'instagram://camera';
+    }, 1500);
   }, []);
 
   const handleFlip = useCallback(() => {
@@ -234,9 +245,14 @@ export default function App() {
           <h1>HaiMeishi</h1>
           <p>Digital Business Card</p>
         </div>
-        <button className="share-btn" onClick={handleShare} aria-label="Bagikan">
-          <Share2 size={18} />
-        </button>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <button className="share-btn ig-btn" onClick={handleIgShare} aria-label="Bagikan ke IG Story">
+            {igCopied ? <span style={{ fontSize: 13, fontWeight: 'bold' }}>✓</span> : <Instagram size={18} />}
+          </button>
+          <button className="share-btn" onClick={handleShare} aria-label="Bagikan">
+            <Share2 size={18} />
+          </button>
+        </div>
       </div>
 
       {/* 3D Card */}

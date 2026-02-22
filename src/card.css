@@ -85,6 +85,16 @@
     background: rgba(255, 255, 255, 0.12);
 }
 
+.ig-btn {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    border: none;
+    color: white;
+}
+
+.ig-btn:active {
+    background: linear-gradient(45deg, #e6683c 0%, #dc2743 30%, #cc2366 70%, #bc1888 100%);
+}
+
 /* ===== CARD STAGE ===== */
 .stage {
     flex: 1;
