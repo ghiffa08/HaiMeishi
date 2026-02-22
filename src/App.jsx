@@ -250,12 +250,12 @@ export default function App() {
           await navigator.share({
             files: [file],
             title: PROFILE.brand,
-            text: `Connect with me! `,
+            text: `Hi! Here is my Digital Business Card. Let's start building something great together. 🚀`,
             url: shareUrl,
           });
         } else if (navigator.share) {
           // Fallback 1: Share link natively
-          await navigator.share({ title: PROFILE.brand, url: shareUrl });
+          await navigator.share({ title: PROFILE.brand, text: `Hi! Here is my Digital Business Card. Let's start building something great together. 🚀`, url: shareUrl });
         } else {
           // Fallback 2: Copy link
           await navigator.clipboard.writeText(window.location.href);

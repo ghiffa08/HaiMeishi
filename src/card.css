@@ -10,7 +10,6 @@
     --ink: #1a1510;
     --paper: #f5f0e8;
     --accent: #1a62d4;
-    --red: #c0392b;
     --tan: #9a8d7a;
 }
 
@@ -40,7 +39,7 @@
 }
 
 .brand-badge {
-    border-left: 3px solid var(--red);
+    border-left: 3px solid var(--accent);
     padding: 4px 0 4px 14px;
 }
 
