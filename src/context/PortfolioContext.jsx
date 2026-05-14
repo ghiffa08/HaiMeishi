@@ -57,7 +57,7 @@ export const PortfolioProvider = ({ children }) => {
                 }
 
                 // 4. Finally end transition
-                setTimeout(() => setIsTransitioning(false), 800);
+                setTimeout(() => setIsTransitioning(false), 1200);
             } catch (err) {
                 console.error("Critical Load Error:", err);
                 setTranslations(prev => ({ ...prev, [DEFAULT_LANG]: LOCAL_TRANSLATIONS[DEFAULT_LANG] }));
@@ -92,8 +92,8 @@ export const PortfolioProvider = ({ children }) => {
                 }
             }
             
-            // Allow a small delay for the splash/transition to show
-            await new Promise(resolve => setTimeout(resolve, 800));
+            // Allow a full delay for the splash/transition CSS animation to finish
+            await new Promise(resolve => setTimeout(resolve, 1200));
             
             setLang(newLang);
             setTargetLang(null);
