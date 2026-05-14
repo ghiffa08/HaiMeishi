@@ -1,0 +1,1358 @@
+import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { 
+  Share2, 
+  Github, 
+  Linkedin, 
+  Instagram, 
+  Mail, 
+  Briefcase, 
+  ChevronRight,
+  RefreshCw,
+  Globe,
+  ArrowLeft,
+  ArrowRight,
+  Languages,
+  ExternalLink
+} from 'lucide-react';
+
+// =====================
+// DICTIONARY (MULTILINGUAL DATA)
+// =====================
+const TRANSLATIONS = {
+    en: {
+        langName: "English",
+        navBack: "To Main Card",
+        navDetailBack: "Return",
+        detailSubtitle: "PROJECT SCROLL",
+        navVol: "VOL. I",
+        portfolio: "Portfolio",
+        role: "Informatics Student | Full Stack Developer & IoT Engineer",
+        tagline: "Building Digital Solutions from Software to Hardware",
+        est: "Est. 2021",
+        avail: "Available for collaboration",
+        
+        secIntroTitle: "01. Prologue",
+        secIntroJp: "自己紹介",
+        secJourneyTitle: "02. Journey",
+        secJourneyJp: "経歴と学歴",
+        secWorksTitle: "03. Archives",
+        secWorksJp: "選ばれた作品",
+        secRecordsTitle: "04. Records",
+        secRecordsJp: "表彰と組織",
+        secPubTitle: "05. Publications & IP",
+        secPubJp: "出版と特許",
+        secEpiTitle: "06. Epilogue",
+        secEpiJp: "連絡先情報",
+        
+        subExp: "Experience",
+        subEdu: "Education",
+        subCert: "Certifications",
+        subAwards: "Awards",
+        subAffil: "Affiliations",
+        subPub: "Publications",
+        subIP: "Intellectual Property",
+
+        bio1: "An Informatics Engineering student focusing on developing comprehensive technological solutions bridging Web Development, the Internet of Things (IoT), and Robotics.",
+        bio2: "Experienced in application development and technology-based innovation, as well as being active in organizations and technological research. I graduated as the best graduate in Software Engineering, hold certifications as a Junior Web Developer, and am actively involved in academic publications and patent development.",
+        bioJp: "Web開発、IoT、ロボティクス分野における包括的な技術ソリューションの開発に注力する情報工学の学生。アプリケーション開発と技術革新の経験があり、組織や技術研究で活躍。ソフトウェア工学の首席卒業生であり、学術出版や特許開発にも積極的に関わっています。",
+
+        ctcVoice: "Voice",
+        ctcLetter: "Letter",
+        ctcLoc: "Location",
+        ctcFocus: "Focus Areas",
+        focusVal: "Web Dev, IoT & Robotics",
+        footerCopy: "All rights reserved.",
+        footerQuote: "Passion · Creation · Resolution",
+        
+        btnDemo: "Live Demo",
+        btnSource: "Source Code"
+    },
+    id: {
+        langName: "Bahasa Indonesia",
+        navBack: "Kembali ke Kartu",
+        navDetailBack: "Kembali",
+        detailSubtitle: "GULUNGAN PROYEK",
+        navVol: "JILID I",
+        portfolio: "Portofolio",
+        role: "Mahasiswa Informatika | Full Stack Developer & Teknisi IoT",
+        tagline: "Membangun Solusi Digital dari Perangkat Lunak hingga Perangkat Keras",
+        est: "Berdiri 2021",
+        avail: "Terbuka untuk Kolaborasi",
+
+        secIntroTitle: "01. Prolog",
+        secIntroJp: "自己紹介",
+        secJourneyTitle: "02. Perjalanan",
+        secJourneyJp: "経歴と学歴",
+        secWorksTitle: "03. Arsip",
+        secWorksJp: "選ばれた作品",
+        secRecordsTitle: "04. Rekam Jejak",
+        secRecordsJp: "表彰と組織",
+        secPubTitle: "05. Publikasi & HaKI",
+        secPubJp: "出版と特許",
+        secEpiTitle: "06. Epilog",
+        secEpiJp: "連絡先情報",
+
+        subExp: "Pengalaman Kerja",
+        subEdu: "Pendidikan",
+        subCert: "Sertifikasi",
+        subAwards: "Penghargaan",
+        subAffil: "Organisasi",
+        subPub: "Publikasi Ilmiah",
+        subIP: "Hak Kekayaan Intelektual",
+
+        bio1: "Mahasiswa Teknik Informatika yang berfokus pada pengembangan solusi teknologi komprehensif yang menjembatani Web Development, Internet of Things (IoT), dan Robotika.",
+        bio2: "Memiliki pengalaman dalam pengembangan aplikasi dan inovasi berbasis teknologi serta aktif dalam kegiatan organisasi dan riset teknologi. Lulusan terbaik Rekayasa Perangkat Lunak, tersertifikasi sebagai Junior Web Developer, dan aktif terlibat dalam publikasi akademik serta pengembangan paten.",
+        bioJp: "Web開発、IoT、ロボティクス分野における包括的な技術ソリューションの開発に注力する情報工学の学生。アプリケーション開発と技術革新の経験があり、組織や技術研究で活躍。ソフトウェア工学の首席卒業生であり、学術出版や特許開発にも積極的に関わっています。",
+
+        ctcVoice: "Telepon",
+        ctcLetter: "Surat",
+        ctcLoc: "Lokasi Domisili",
+        ctcFocus: "Fokus Utama",
+        focusVal: "Web Dev, IoT & Robotika",
+        footerCopy: "Hak cipta dilindungi.",
+        footerQuote: "Semangat · Kreasi · Solusi",
+        
+        btnDemo: "Lihat Demo",
+        btnSource: "Kode Sumber"
+    },
+    ja: {
+        langName: "日本語",
+        navBack: "メインカードへ",
+        navDetailBack: "戻る",
+        detailSubtitle: "プロジェクト詳細",
+        navVol: "巻 一",
+        portfolio: "ポートフォリオ",
+        role: "情報工学の学生 | フルスタック開発者 & IoTエンジニア",
+        tagline: "ソフトウェアからハードウェアまでのデジタルソリューションの構築",
+        est: "設立 2021年",
+        avail: "協業受付中",
+
+        secIntroTitle: "〇一. 序章",
+        secIntroJp: "自己紹介",
+        secJourneyTitle: "〇二. 旅程",
+        secJourneyJp: "経歴と学歴",
+        secWorksTitle: "〇三. 記録",
+        secWorksJp: "選ばれた作品",
+        secRecordsTitle: "〇四. 栄誉",
+        secRecordsJp: "表彰と組織",
+        secPubTitle: "〇五. 出版",
+        secPubJp: "出版と特許",
+        secEpiTitle: "〇六. 終章",
+        secEpiJp: "連絡先情報",
+
+        subExp: "職歴",
+        subEdu: "学歴",
+        subCert: "資格",
+        subAwards: "受賞歴",
+        subAffil: "所属組織",
+        subPub: "学術出版",
+        subIP: "知的財産権",
+
+        bio1: "Web開発、IoT、ロボティクスを繋ぐ包括的な技術ソリューションの開発に注力する情報工学の学生です。",
+        bio2: "アプリケーション開発や技術革新の経験があり、組織活動や技術研究にも積極的に参加しています。ソフトウェア工学を首席で卒業し、ジュニアWeb開発者の認定を受け、学術出版や特許開発にも積極的に関わっています。",
+        bioJp: "Building Digital Solutions from Software to Hardware.", 
+
+        ctcVoice: "電話",
+        ctcLetter: "手紙 (メール)",
+        ctcLoc: "所在地",
+        ctcFocus: "専門分野",
+        focusVal: "Web開発, IoT, ロボティクス",
+        footerCopy: "無断転載を禁じます。",
+        footerQuote: "情熱 · 創造 · 解決",
+        
+        btnDemo: "ライブデモ",
+        btnSource: "ソースコード"
+    },
+    zh: {
+        langName: "中文",
+        navBack: "返回主页",
+        navDetailBack: "返回",
+        detailSubtitle: "项目详情",
+        navVol: "第一卷",
+        portfolio: "作品集",
+        role: "信息学学生 | 全栈开发者 & 物联网工程师",
+        tagline: "构建从软件到硬件的数字解决方案",
+        est: "成立於 2021",
+        avail: "期待合作机会",
+
+        secIntroTitle: "01. 序言",
+        secIntroJp: "自我介绍",
+        secJourneyTitle: "02. 旅程",
+        secJourneyJp: "经历与学历",
+        secWorksTitle: "03. 档案",
+        secWorksJp: "精选作品",
+        secRecordsTitle: "04. 记录",
+        secRecordsJp: "荣誉与组织",
+        secPubTitle: "05. 著作",
+        secPubJp: "出版と特許",
+        secEpiTitle: "06. 结语",
+        secEpiJp: "联系方式",
+
+        subExp: "工作经验",
+        subEdu: "教育背景",
+        subCert: "专业认证",
+        subAwards: "荣誉奖项",
+        subAffil: "所属组织",
+        subPub: "学术出版物",
+        subIP: "知识产权",
+
+        bio1: "我是一名信息工程专业的学生，致力于开发连接Web开发、物联网（IoT）和机器人技术的全面技术解决方案。",
+        bio2: "在应用程序开发和技术创新方面拥有丰富经验，并积极参与组织活动和技术研究。我以软件工程专业第一名的成绩毕业，持有初级Web开发者认证，并积极参与学术出版和专利开发。",
+        bioJp: "Web開発、IoT、ロボティクス分野における包括的な技術ソリューションの開発に注力する情報工学の学生。アプリケーション開発と技術革新の経験があり、組織や技術研究で活躍。ソフトウェア工学の首席卒業生であり、学術出版や特許開発にも積極的に関わっています。",
+
+        ctcVoice: "电话",
+        ctcLetter: "信件 (邮箱)",
+        ctcLoc: "所在地",
+        ctcFocus: "关注领域",
+        focusVal: "Web开发, 物联网, 机器人",
+        footerCopy: "版权所有。",
+        footerQuote: "热情 · 创造 · 解决",
+        
+        btnDemo: "在线演示",
+        btnSource: "源代码"
+    },
+    ar: {
+        langName: "العربية",
+        navBack: "العودة للبطاقة",
+        navDetailBack: "رجوع",
+        detailSubtitle: "تفاصيل المشروع",
+        navVol: "الجزء الأول",
+        portfolio: "ملف الأعمال",
+        role: "طالب معلوماتية | مطور متكامل ومهندس إنترنت الأشياء",
+        tagline: "بناء حلول رقمية من البرمجيات إلى الأجهزة",
+        est: "تأسست ٢٠٢١",
+        avail: "متاح للتعاون",
+
+        secIntroTitle: "٠١. مقدمة",
+        secIntroJp: "مقدمة شخصية",
+        secJourneyTitle: "٠٢. الرحلة",
+        secJourneyJp: "الخبرات والتعليم",
+        secWorksTitle: "٠٣. الأرشيف",
+        secWorksJp: "أعمال مختارة",
+        secRecordsTitle: "٠٤. السجلات",
+        secRecordsJp: "الجوائز والمنظمات",
+        secPubTitle: "٠٥. المنشورات",
+        secPubJp: "出版と特許",
+        secEpiTitle: "٠٦. خاتمة",
+        secEpiJp: "معلومات التواصل",
+
+        subExp: "الخبرة العملية",
+        subEdu: "التعليم",
+        subCert: "الشهادات",
+        subAwards: "الجوائز",
+        subAffil: "المنظمات",
+        subPub: "المنشورات الأكاديمية",
+        subIP: "الملكية الفكرية",
+
+        bio1: "طالب في هندسة المعلوماتية يركز على تطوير حلول تكنولوجية شاملة تربط بين تطوير الويب، وإنترنت الأشياء (IoT)، والروبوتات.",
+        bio2: "أتمتع بخبرة في تطوير التطبيقات والابتكار التكنولوجي، بالإضافة إلى نشاطي في المنظمات والبحث التكنولوجي. تخرجت كأفضل خريج في هندسة البرمجيات، وحاصل على شهادات كمطور ويب مبتدئ، وأشارك بنشاط في النشر الأكاديمي وتطوير براءات الاختراع.",
+        bioJp: "Web開発、IoT、ロボティクス分野における包括的な技術ソリューションの開発に注力する情報工学の学生。アプリケーション開発と技術革新の経験があり、組織や技術研究で活躍。ソフトウェア工学の首席卒業生であり、学術出版や特許開発にも積極的に関わっています。",
+
+        ctcVoice: "هاتف",
+        ctcLetter: "بريد إلكتروني",
+        ctcLoc: "الموقع",
+        ctcFocus: "مجالات التركيز",
+        focusVal: "تطوير الويب، إنترنت الأشياء، الروبوتات",
+        footerCopy: "جميع الحقوق محفوظة.",
+        footerQuote: "شغف · إبداع · حلول",
+        
+        btnDemo: "عرض حي",
+        btnSource: "الكود المصدري"
+    }
+};
+
+// =====================
+// DATA & PROFILE
+// =====================
+const PROFILE = {
+    nameKo: "ハイカル",
+    nameEn: "Haikal Jibran Al-Ghiffarry",
+    role: "Informatics Student | Full Stack Developer & IoT Engineer",
+    tagline: "Building Digital Solutions from Software to Hardware",
+    tel: "+62 85156958580",
+    mail: "hello@ghiffa.dev",
+    adr: "Kuningan, West Java, Indonesia",
+    city: "Kuningan",
+    brand: "Haikal Jibran A.",
+    brandKanji: "個 人 ポ ー ト フ ォ リ オ", 
+    est: "2021"
+};
+
+const LINKS = [
+    { name: 'Portfolio', sub: 'www.ghiffa.dev', href: 'https://www.ghiffa.dev' },
+    { name: 'GitHub', sub: '@ghiffa08', href: 'https://github.com/ghiffa08' },
+    { name: 'LinkedIn', sub: 'Haikal Jibran A.', href: 'https://www.linkedin.com/in/haikal-jibran-al-ghiffarry' },
+    { name: 'Instagram', sub: '@haikaljibrn__', href: 'https://www.instagram.com/haikaljibrn__' },
+];
+
+const EDUCATION = [
+    { year: '2024 - Present', degree: 'Informatics Engineering', org: 'Universitas Kuningan', note: 'Undergraduate Program' },
+    { year: '2021 - 2024', degree: 'Software Engineering', org: 'SMKN 2 Kuningan', note: 'Best Graduate / GPA: 3.90' },
+];
+
+const CERTIFICATIONS = [
+    { year: 'Oct 2024', title: 'Junior Web Developer', org: 'Badan Nasional Sertifikasi Profesi (BNSP)' },
+    { year: 'Aug 2024', title: 'Vocational School Graduate Academy', org: 'Kominfo' },
+    { year: 'May 2024', title: 'Junior Web Programmer', org: 'PT. Cakrawala Global Yaksa' },
+];
+
+const EXPERIENCE = [
+    { 
+        year: 'Oct 2024 - Feb 2025', 
+        role: 'Web Developer', 
+        org: 'PT. Bengkel Aplikasi Nusantara', 
+        desc: 'Developed EduDikti (school/boarding school management website) and Hijarah Corebanking (web-based core banking system).' 
+    },
+    { 
+        year: 'May - Jun 2024', 
+        role: 'Web Developer', 
+        org: 'LSP-P1 SMKN 2 Kuningan', 
+        desc: 'Designed and built a web application for managing professional certifications. Includes features for competency test registration, self-assessment, and online assessment approval.' 
+    },
+    { 
+        year: 'Oct - Dec 2023', 
+        role: 'Web Developer', 
+        org: 'PT. BPR Raksa Wacana Agri Purnama', 
+        desc: 'Built E-Digital Bank Raksa for digital banking services and developed Kredit Raksa Analytica for credit application analysis.' 
+    }
+];
+
+const ORGANIZATIONS = [
+    { year: '2025', role: 'Head of Science & Tech. Division', org: 'HIMA TI' },
+    { year: '2025', role: 'Academic & Science Division', org: 'Paguyuban Barudak Komputer UNIKU' },
+    { year: '2025', role: 'General Secretary', org: 'UKM Pencak Silat UNIKU' },
+    { year: '2024', role: 'IT Division', org: 'Komunitas Literasi SCADA' },
+    { year: '2021 - 2023', role: 'Athlete', org: 'Perguruan Silat Bima Suci' },
+    { year: '2021 - 2022', role: 'Developer (Smart Coffee)', org: 'SMK Membangun Desa' },
+];
+
+const AWARDS = [
+    { year: '2025', title: '1st Place - Outstanding Student (Pilmapres)', org: 'Universitas Kuningan' },
+    { year: '2025', title: '2nd Place - Int. Digital Math Game Comp.', org: 'Universitas Syiah Kuala' },
+    { year: '2024', title: '1st Rank Highest Score in Vocational Test', org: 'SMKN 2 Kuningan' },
+    { year: '2024', title: '2nd Place - Reading Ambassador', org: 'SMKN 2 Kuningan' },
+    { year: '2023', title: '1st Place - Business Plan Competition', org: 'Uniku Business Community' },
+    { year: '2023', title: 'Finalist Astra Vocapreneur Program', org: 'Astra Start-Up Community' },
+];
+
+// New Data: Publications and IP
+const PUBLICATIONS = [
+    { year: 'On-Going', title: 'Scopus Indexed Journal', org: 'International Publication', note: 'Research paper currently in the submission and peer-review process.' },
+    { year: '2024', title: 'Sinta Indexed Journal', org: 'National Academic Journal', note: 'Published research regarding technology implementation.' }
+];
+
+const INTELLECTUAL_PROPERTY = [
+    { year: '2024', title: 'Hak Kekayaan Intelektual (HaKI)', org: 'Kementerian Hukum dan HAM RI', note: 'Copyright granted for software/application developed.' },
+    { year: 'On-Going', title: 'Paten Sederhana (Simple Patent)', org: 'Kementerian Hukum dan HAM RI', note: 'Patent application currently in process for an IoT/Hardware innovation.' }
+];
+
+const WORKS = [
+    {
+        id: 'bank-raksa',
+        year: '2023',
+        title: 'Digital Bank Raksa & Kredit Analytica',
+        titleJp: 'デジタル銀行・クレジット分析システム',
+        shortDesc: 'Digital banking platform and credit analysis web app for PT. BPR Raksa Wacana Agri Purnama.',
+        fullDesc: 'Developed "E-Digital Bank Raksa", a digital banking website for customer services including complaints, credit applications, and account opening (savings and deposits). Additionally built "Kredit Raksa Analytica", a web-based application to follow up on credit applications and conduct comprehensive credit analysis.',
+        fullDescJp: 'PT. BPR Raksa Wacana Agri Purnama向けのデジタルバンキングサービスWebサイトと、消費者信用申し込みの管理・分析用Webアプリケーションの設計と構築。与信承認プロセスを合理化し、データ駆動型の洞察を提供します。',
+        tags: ['Web Development', 'Fintech', 'Dashboard', 'Data Analysis'],
+        role: 'Web Developer',
+        link: 'https://e-digital-bank.rwap.co.id/',
+        repo: ''
+    },
+    {
+        id: 'lsp-p1',
+        year: '2024',
+        title: 'LSP SCADA APP',
+        titleJp: 'プロフェッショナル認定プラットフォーム',
+        shortDesc: 'Web application for online professional certification management at LSP-P1 SMKN 2 Kuningan.',
+        fullDesc: 'Created a web-based application used to manage professional certifications at LSP-P1 SMKN 2 Kuningan. This application includes comprehensive features for competency test registration, self-assessment, and online assessment approvals.',
+        fullDescJp: 'LSP-P1 SMKN 2 Kuningan向けの、専門資格管理とオンライン評価を実施するWebアプリケーションの設計と構築。試験プロセスをデジタル化し、職業スキルの評価における完全性と効率性を確保します。',
+        tags: ['Web App', 'Online Assessment', 'Education'],
+        role: 'Web Developer',
+        link: 'http://lsp.apps.smkn2-kng.sch.id/',
+        repo: ''
+    },
+    {
+        id: 'haipos',
+        year: '2024',
+        title: 'HAIPOS',
+        titleJp: '販売時点情報管理（POS）',
+        shortDesc: 'A personal Point of Sales (POS) application project.',
+        fullDesc: 'Developed HAIPOS, a custom Point of Sales application designed to streamline transaction processing, inventory management, and sales reporting for small to medium businesses.',
+        fullDescJp: '中小企業向けの取引処理、在庫管理、売上報告を合理化するために設計されたカスタムの販売時点情報管理（POS）アプリケーション、HAIPOSを開発しました。',
+        tags: ['Web App', 'POS', 'Business Management'],
+        role: 'Fullstack Developer',
+        link: '#',
+        repo: ''
+    },
+    {
+        id: 'plesiranku',
+        year: '2023',
+        title: 'Plesiranku',
+        titleJp: 'クニンガン観光ウェブサイト',
+        shortDesc: 'A tourism website dedicated to showcasing destinations in Kuningan.',
+        fullDesc: 'Created "Plesiranku", a tourism-focused website aimed at promoting local destinations, cultural heritage, and travel guides specifically for the Kuningan region.',
+        fullDescJp: 'クニンガン地域の観光地、文化遺産、旅行ガイドを宣伝することを目的とした観光ウェブサイト「Plesiranku」を作成しました。',
+        tags: ['Web Design', 'Tourism', 'Frontend'],
+        role: 'Frontend Developer',
+        link: '#',
+        repo: ''
+    },
+    {
+        id: 'rethreee',
+        year: '2023',
+        title: 'REThreee',
+        titleJp: '環境に優しい市場アプリ',
+        shortDesc: 'An eco-friendly marketplace application connecting users with recycled products.',
+        fullDesc: 'Co-founded and developed "REThreee", a marketplace application connecting users with recycled product artisans. This initiative won 1st Place in the UBC Business Plan Competition and was selected as a finalist in the Astra Vocapreneur Program.',
+        fullDescJp: 'リサイクル製品の職人とユーザーを繋ぐ環境に優しいマーケットプレイスアプリ「REThreee」を共同設立し開発しました。この取り組みはUBCビジネスプランコンテストで1位を獲得しました。',
+        tags: ['Mobile App', 'Eco-friendly', 'Social Impact'],
+        role: 'Co-Founder / Fullstack Developer',
+        link: '#',
+        repo: ''
+    },
+    {
+        id: 'smart-coffee',
+        year: '2022',
+        title: 'Smart Coffee Monitoring',
+        titleJp: 'スマートコーヒー農園監視',
+        shortDesc: 'IoT-based Smart Coffee Monitoring model developed for SMK Membangun Desa.',
+        fullDesc: 'Acted as the developer for the "Smart Coffee Monitoring Based on IoT" model under the SMK Membangun Desa initiative. The project utilized IoT sensors to monitor and improve coffee plantation conditions.',
+        fullDescJp: 'SMK Membangun Desaの取り組みのもと、IoTベースのスマートコーヒー監視モデルの開発者として活動しました。IoTセンサーを利用してコーヒー農園の状況を監視します。',
+        tags: ['IoT', 'Sensors', 'Agriculture'],
+        role: 'Developer',
+        link: '#',
+        repo: ''
+    }
+];
+
+// =====================
+// GLOBAL STYLES (Merged)
+// =====================
+const GLOBAL_STYLES = `
+/* --- Base Theme & Reset --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    background-color: #f4efeb; 
+    color: #2c2825; 
+    font-family: 'Cormorant Garamond', serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* --- APP CONTAINER (Link in Bio Base) --- */
+.app-container {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    font-family: 'DM Mono', monospace;
+    overflow-x: hidden;
+}
+
+/* Washi Paper Texture Overlay */
+.app-container::before,
+.t-paper-bg::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; mix-blend-mode: multiply;
+}
+.app-container::after,
+.t-paper-bg::after {
+    content: ''; position: fixed; inset: 0;
+    background-image: repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(44, 40, 37, 0.03) 39px, rgba(44, 40, 37, 0.03) 40px);
+    pointer-events: none; z-index: 0;
+}
+
+/* =======================================
+   LINK IN BIO MODULE STYLES 
+   ======================================= */
+/* Topbar */
+.c-topbar {
+    width: 100%; max-width: 560px; display: flex; justify-content: space-between; align-items: center;
+    padding: 24px 24px 0; position: relative; z-index: 10;
+}
+.c-badge { border-left: 2px solid #b84a39; padding-left: 12px; }
+.c-badge h1 { font-family: 'Shippori Mincho', serif; font-size: 18px; color: #2c2825; font-weight: 700; margin-bottom: 2px;}
+.c-badge p { font-size: 8px; letter-spacing: 0.3em; color: #8c8177; text-transform: uppercase;}
+.c-share-btn {
+    width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(44,40,37,0.15);
+    background: transparent; color: #2c2825; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all 0.2s;
+}
+.c-share-btn:hover { background: rgba(44,40,37,0.05); }
+.c-share-btn:active { transform: scale(0.9); }
+
+/* --- 3D Card Stage --- */
+.c-stage {
+    width: 100%; max-width: 560px; display: flex; align-items: center; justify-content: center;
+    padding: 32px 16px; position: relative; z-index: 10; flex-shrink: 0;
+}
+.c-scene {
+    width: min(480px, 90vw); aspect-ratio: 520 / 297; perspective: 1200px;
+    cursor: grab; touch-action: none; user-select: none;
+}
+.c-scene.is-grabbing { cursor: grabbing; }
+.c-inner { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; }
+
+.c-face {
+    position: absolute; inset: 0; backface-visibility: hidden; 
+    box-shadow: 0 4px 24px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.05);
+    transform: translateZ(3px); overflow: hidden; border-radius: 4px;
+}
+.c-face::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='1' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='150' height='150' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 5;
+}
+.c-face::after {
+    content: ''; position: absolute; inset: 0;
+    pointer-events: none; z-index: 6; opacity: var(--shine, 0); transition: opacity 0.3s;
+}
+
+.c-face-front {
+    background: #f4efeb; 
+    border: 1px solid rgba(44,40,37,0.1);
+}
+.c-face-front::before { mix-blend-mode: multiply; opacity: 0.05; }
+.c-face-front::after { background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(0,0,0,0.06) 0%, transparent 60%); }
+
+.c-face-back { 
+    transform: rotateY(180deg) translateZ(3px); 
+    background: #2c2825; 
+}
+.c-face-back::after { background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.15) 0%, transparent 60%); }
+
+/* 3D Edges to give thickness */
+.c-edge { position: absolute; background: #e0d9cc; }
+.c-edge-right { right: -3px; width: 6px; top: 0; height: 100%; transform: rotateY(90deg); transform-origin: center; background: linear-gradient(to bottom, #d8d1c4, #cdc6b8); }
+.c-edge-left { left: -3px; width: 6px; top: 0; height: 100%; transform: rotateY(-90deg); transform-origin: center; background: linear-gradient(to bottom, #d8d1c4, #cdc6b8); }
+.c-edge-top { top: -3px; height: 6px; left: 0; width: 100%; transform: rotateX(90deg); transform-origin: center; background: linear-gradient(to right, #d8d1c4, #e0d9cc, #d8d1c4); }
+.c-edge-bottom { bottom: -3px; height: 6px; left: 0; width: 100%; transform: rotateX(-90deg); transform-origin: center; background: linear-gradient(to right, #c8c1b2, #d4cdc0, #c8c1b2); }
+
+/* Card Content (Dark Face - cf-layout) */
+.cf-layout {
+    width: 100%; height: 100%; padding: clamp(16px, 4%, 24px) clamp(20px, 5%, 32px);
+    display: flex; flex-direction: column; justify-content: space-between; position: relative; z-index: 10;
+}
+.cf-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.cf-jp { display: flex; flex-direction: column; gap: 2px; }
+.cf-jp span { font-family: 'Shippori Mincho', serif; font-size: clamp(6px, 1.5vw, 8px); color: #8c8177; letter-spacing: 0.2em; }
+.cf-brand { text-align: right; }
+.cf-brand h2 { font-family: 'Shippori Mincho', serif; font-size: clamp(14px, 3.5vw, 20px); color: #f4efeb; font-weight: 600; letter-spacing: 0.1em; }
+.cf-brand p { font-family: 'Shippori Mincho', serif; font-size: clamp(7px, 1.5vw, 9px); color: #b84a39; letter-spacing: 0.4em; margin-top: 4px; }
+
+.cf-mid { display: flex; gap: 16px; align-items: stretch; }
+.cf-line { width: 1px; background: rgba(244, 239, 235, 0.2); }
+.cf-info { display: flex; flex-direction: column; justify-content: center;}
+.cf-name { font-family: 'Shippori Mincho', serif; font-size: clamp(16px, 4vw, 22px); color: #f4efeb; letter-spacing: 0.1em; font-weight: 600; margin-bottom: 2px;}
+.cf-en { font-family: 'Cormorant Garamond', serif; font-size: clamp(11px, 2.5vw, 14px); color: #a89f91; font-style: italic; margin-bottom: 12px;}
+.cf-role { font-size: clamp(6px, 1.2vw, 7px); color: #8c8177; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+.cf-contact { font-size: clamp(8px, 1.8vw, 10px); color: #dcd3c6; display: flex; flex-direction: column; gap: 4px; }
+.cf-contact span { color: #8c8177; margin-right: 8px; display: inline-block; width: 24px; font-size: clamp(6px, 1.2vw, 8px); letter-spacing: 0.1em;}
+
+.cf-bot { display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid rgba(244, 239, 235, 0.1); padding-top: 12px; }
+.cf-tagline { font-family: 'Shippori Mincho', serif; font-size: clamp(7px, 1.5vw, 9px); color: #8c8177; letter-spacing: 0.2em; }
+.cf-est { font-size: clamp(7px, 1.5vw, 9px); color: #b84a39; letter-spacing: 0.2em; }
+
+/* Card Content (Back) */
+.cb-layout { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; z-index: 10; flex-direction: column; gap: 12px;}
+.cb-corner { position: absolute; width: 30px; height: 30px; border: 1px solid rgba(44,40,37,0.2); }
+.cb-corner.tl { top: 16px; left: 16px; border-right: none; border-bottom: none; }
+.cb-corner.tr { top: 16px; right: 16px; border-left: none; border-bottom: none; }
+.cb-corner.bl { bottom: 16px; left: 16px; border-right: none; border-top: none; }
+.cb-corner.br { bottom: 16px; right: 16px; border-left: none; border-top: none; }
+.cb-kanji { font-family: 'Shippori Mincho', serif; font-size: 10px; letter-spacing: 0.6em; color: #8c8177; }
+.cb-brand { font-family: 'Shippori Mincho', serif; font-size: 28px; font-weight: 700; color: #2c2825; letter-spacing: 0.1em; }
+.cb-hanko { position: absolute; bottom: 24px; right: 32px; width: 32px; height: 32px; border: 2px solid #b84a39; color: #b84a39; font-family: 'Shippori Mincho', serif; display: flex; align-items: center; justify-content: center; transform: rotate(-5deg); font-weight: bold; opacity: 0.7;}
+
+/* Stage Controls */
+.c-controls { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 32px; position: relative; z-index: 10;}
+.c-hint { font-size: 9px; letter-spacing: 0.3em; color: #8c8177; text-transform: uppercase; }
+.c-flip-btn {
+    background: transparent; border: 1px solid rgba(44,40,37,0.2); color: #2c2825; padding: 6px 14px;
+    border-radius: 20px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em;
+    text-transform: uppercase; display: flex; align-items: center; gap: 6px; cursor: pointer; transition: all 0.2s;
+}
+.c-flip-btn:hover { background: rgba(44,40,37,0.05); }
+
+/* --- Bio Links --- */
+.b-section { width: 100%; max-width: 460px; padding: 0 24px 64px; display: flex; flex-direction: column; gap: 12px; position: relative; z-index: 10;}
+.b-link {
+    display: flex; align-items: center; gap: 16px; padding: 18px 24px;
+    background: rgba(255,255,255,0.5); border: 1px solid rgba(44,40,37,0.1);
+    color: #2c2825; text-decoration: none; font-size: 13px; font-weight: 500;
+    transition: all 0.3s ease; position: relative; overflow: hidden;
+}
+.b-link::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: #2c2825; transition: width 0.3s;
+}
+.b-link:hover::before { width: 4px; }
+.b-link:hover { transform: translateY(-2px); background: #fff; border-color: rgba(44,40,37,0.2); padding-left: 28px;}
+.b-link.primary { background: #2c2825; color: #f4efeb; margin-bottom: 16px; border: none; cursor: pointer; }
+.b-link.primary:hover { background: #1a1715; box-shadow: 0 8px 24px rgba(44,40,37,0.15); padding-left: 24px;}
+.b-link.primary::before { display: none; }
+.b-user { margin-left: auto; font-size: 10px; color: #8c8177; letter-spacing: 0.05em; font-weight: 400;}
+.b-link.primary .opacity-50 { opacity: 0.5; margin-left: auto; }
+.b-icon { opacity: 0.7; }
+.b-link.primary .b-icon { opacity: 1; }
+
+/* =======================================
+   JAPANESE SCROLL PORTFOLIO MODULE 
+   ======================================= */
+/* Main Container */
+.t-container { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; padding: 0 32px 100px; }
+
+/* Language Switcher */
+.t-lang-switcher {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 20px; 
+    margin-bottom: -20px;
+}
+.t-lang-btn {
+    display: flex; align-items: center; gap: 6px;
+    background: transparent; border: 1px solid rgba(44, 40, 37, 0.2); border-radius: 4px;
+    padding: 6px 12px; font-family: 'DM Mono', monospace; font-size: 10px; color: #2c2825;
+    cursor: pointer; transition: all 0.3s;
+    position: relative;
+    z-index: 51; 
+}
+.t-lang-btn:hover { background: rgba(44, 40, 37, 0.05); }
+.t-lang-menu {
+    position: absolute; right: 0; top: 100%; 
+    background: #f4efeb; border: 1px solid rgba(44, 40, 37, 0.15); border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05); overflow: hidden;
+    display: flex; flex-direction: column; width: 140px; 
+    z-index: 60; 
+    opacity: 0; 
+    visibility: hidden; 
+    pointer-events: none;
+    transform: translateY(-10px); 
+    transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+}
+.t-lang-switcher:hover .t-lang-menu { 
+    opacity: 1; 
+    visibility: visible; 
+    pointer-events: auto; 
+    transform: translateY(0); 
+}
+.t-lang-item {
+    padding: 10px 14px; text-align: left; font-family: 'DM Mono', monospace; font-size: 10px;
+    background: transparent; border: none; border-bottom: 1px solid rgba(44, 40, 37, 0.05);
+    cursor: pointer; transition: background 0.2s; color: #2c2825;
+    width: 100%; 
+}
+.t-lang-item:hover { background: rgba(44, 40, 37, 0.08); }
+.t-lang-item:last-child { border-bottom: none; }
+
+/* Typography Utilities */
+.t-font-mincho { font-family: 'Shippori Mincho', serif; }
+.t-font-mono { font-family: 'DM Mono', monospace; }
+.t-font-serif { font-family: 'Cormorant Garamond', serif; }
+.t-text-ink { color: #2c2825; }
+.t-text-faded { color: #8c8177; }
+.t-text-accent { color: #b84a39; }
+
+/* Animations */
+@keyframes t-fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes t-fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.t-animate-up { animation: t-fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+
+/* Navigation & Header */
+.t-nav { padding-top: 32px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; animation: t-fadeIn 1s ease both; }
+.t-btn-back { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #8c8177; text-decoration: none; transition: color 0.3s; background: transparent; border: none; cursor: pointer; font-family: 'DM Mono', monospace; }
+.t-btn-back:hover { color: #2c2825; }
+.t-header { border-bottom: 1px solid #dcd3c6; padding-bottom: 32px; margin-bottom: 64px; display: flex; justify-content: space-between; align-items: flex-end; }
+.t-header-title { font-size: 24px; font-weight: 600; letter-spacing: 0.1em; }
+.t-header-jp { font-size: 10px; letter-spacing: 0.5em; margin-top: 8px; }
+
+/* RTL Support for Arabic */
+[dir="rtl"] .t-header { flex-direction: row-reverse; text-align: right; }
+[dir="rtl"] .t-nav { flex-direction: row-reverse; }
+[dir="rtl"] .t-hero { flex-direction: row-reverse; text-align: right; }
+[dir="rtl"] .t-section-header { flex-direction: row-reverse; }
+[dir="rtl"] .t-section-jp-vert { border-left: none; border-right: 1px solid #dcd3c6; padding-left: 0; padding-right: 16px; }
+[dir="rtl"] .t-bio { padding-left: 0; padding-right: 48px; }
+[dir="rtl"] .t-bio::before { left: auto; right: 0; content: '」'; transform: scaleX(-1); }
+[dir="rtl"] .t-timeline { border-left: none; border-right: 1px solid #dcd3c6; margin-left: 0; margin-right: 8px; padding-left: 0; padding-right: 24px; }
+[dir="rtl"] .t-timeline-item::before { left: auto; right: -28px; }
+[dir="rtl"] .t-contact-grid { text-align: right; }
+[dir="rtl"] .t-contact-item { border-right: none; border-left: 1px solid #dcd3c6; }
+[dir="rtl"] .t-contact-item:nth-child(even) { border-left: none; }
+[dir="rtl"] .t-footer { flex-direction: row-reverse; text-align: right; }
+[dir="rtl"] .t-lang-menu { right: auto; left: 0; }
+[dir="rtl"] .t-lang-item { text-align: right; }
+
+/* Hero Section */
+.t-hero { display: flex; gap: 32px; margin-bottom: 80px; }
+.t-hero-stroke { width: 2px; background-color: #2c2825; height: 120px; margin-top: 8px; opacity: 0.8; }
+.t-hero-content h1 { font-size: 42px; font-weight: 500; letter-spacing: 0.15em; line-height: 1.2; margin-bottom: 8px; }
+.t-hero-en { font-size: 18px; font-style: italic; color: #6d635a; letter-spacing: 0.05em; margin-bottom: 16px; }
+.t-hero-role { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: #8c8177; border-bottom: 1px solid #dcd3c6; padding-bottom: 8px; display: inline-block; line-height: 1.5; margin-bottom: 12px; }
+.t-hero-tagline { font-family: 'Cormorant Garamond', serif; font-size: 16px; color: #2c2825; font-style: italic;}
+
+/* Section Headings */
+.t-section-header { display: flex; align-items: center; gap: 24px; margin-bottom: 40px; }
+.t-section-jp-vert { writing-mode: vertical-rl; text-orientation: upright; font-size: 14px; letter-spacing: 0.3em; color: #b84a39; font-weight: 600; height: 80px; border-left: 1px solid #dcd3c6; padding-left: 16px; }
+.t-section-title { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase; color: #2c2825; }
+.t-section-line { flex: 1; height: 1px; background-color: #dcd3c6; }
+
+/* Content Blocks */
+.t-bio { margin-bottom: 80px; padding-left: 48px; position: relative; }
+.t-bio::before { content: '「'; position: absolute; left: 0; top: -10px; font-family: 'Shippori Mincho', serif; font-size: 40px; color: #dcd3c6; }
+.t-bio p { font-size: 19px; line-height: 1.8; margin-bottom: 20px; color: #3b3631; text-align: justify; }
+.t-bio-jp { font-size: 13px; line-height: 2.2; letter-spacing: 0.1em; color: #6d635a; margin-top: 32px; border-top: 1px dashed #dcd3c6; padding-top: 24px; text-align: justify; }
+
+/* Timelines */
+.t-grid-split { display: grid; grid-template-columns: 1fr; gap: 64px; margin-bottom: 80px; }
+@media(min-width: 640px) { .t-grid-split { grid-template-columns: 1fr 1fr; gap: 40px; } }
+.t-timeline { border-left: 1px solid #dcd3c6; margin-left: 8px; padding-left: 24px; display: flex; flex-direction: column; gap: 32px; }
+.t-timeline-item { position: relative; }
+.t-timeline-item::before { content: ''; position: absolute; left: -28px; top: 6px; width: 7px; height: 7px; background-color: #f4efeb; border: 1px solid #2c2825; transform: rotate(45deg); }
+.t-timeline-year { font-family: 'DM Mono', monospace; font-size: 10px; color: #8c8177; margin-bottom: 8px; letter-spacing: 0.1em; }
+.t-timeline-title { font-family: 'Shippori Mincho', serif; font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+.t-timeline-org { font-size: 14px; color: #6d635a; font-style: italic; margin-bottom: 8px; }
+.t-timeline-desc { font-size: 15px; line-height: 1.6; color: #4a443e; text-align: justify; }
+
+/* Work Cards */
+.t-works-list { display: flex; flex-direction: column; margin-bottom: 80px; border-top: 1px solid #dcd3c6; }
+.t-work-row { display: flex; flex-direction: column; padding: 32px 0; border-bottom: 1px solid #dcd3c6; cursor: pointer; transition: background-color 0.4s ease; text-decoration: none; color: inherit; }
+@media(min-width: 640px) { .t-work-row { flex-direction: row; align-items: flex-start; gap: 32px; } }
+.t-work-row:hover { background-color: rgba(220, 211, 198, 0.15); }
+.t-work-row:hover .t-work-arrow { transform: translateX(8px); opacity: 1; }
+[dir="rtl"] .t-work-row:hover .t-work-arrow { transform: translateX(-8px) rotate(180deg); }
+[dir="rtl"] .t-work-arrow { transform: rotate(180deg); }
+
+.t-work-year { font-family: 'DM Mono', monospace; font-size: 11px; color: #8c8177; flex-shrink: 0; width: 60px; padding-top: 4px; }
+.t-work-info { flex: 1; }
+.t-work-title { font-family: 'Shippori Mincho', serif; font-size: 20px; font-weight: 600; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+.t-work-desc { font-size: 16px; line-height: 1.6; color: #4a443e; margin-bottom: 16px; text-align: justify; }
+.t-work-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.t-work-tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; border: 1px solid #dcd3c6; color: #6d635a; }
+.t-work-arrow { opacity: 0.3; transition: all 0.3s ease; }
+
+/* Detail Work Page */
+.t-detail-header { text-align: center; margin-bottom: 48px; border-bottom: 1px solid #dcd3c6; padding-bottom: 48px; }
+.t-detail-title { font-size: 32px; line-height: 1.3; margin-bottom: 16px; }
+.t-detail-jp { font-size: 14px; letter-spacing: 0.3em; color: #8c8177; margin-bottom: 32px; }
+.t-detail-tags { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; }
+.t-detail-tag { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 16px; border: 1px solid #2c2825; }
+.t-detail-tag.dark { background: #2c2825; color: #f4efeb; }
+.t-detail-content { font-size: 19px; line-height: 1.8; color: #3b3631; margin-bottom: 40px; text-align: justify; }
+.t-detail-jp-content { font-family: 'Shippori Mincho', serif; font-size: 14px; line-height: 2.2; letter-spacing: 0.1em; color: #6d635a; padding: 32px; background: rgba(220, 211, 198, 0.15); border: 1px solid #dcd3c6; margin-bottom: 48px; text-align: justify; }
+.t-detail-actions { display: flex; gap: 24px; justify-content: center; margin-bottom: 80px; flex-wrap: wrap; }
+.t-btn { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; color: #2c2825; border: 1px solid #2c2825; padding: 14px 32px; display: inline-flex; align-items: center; gap: 12px; transition: all 0.3s; background: transparent; cursor: pointer; }
+.t-btn:hover { background: #2c2825; color: #f4efeb; }
+
+/* Lists */
+.t-elegant-list { list-style: none; border-top: 1px solid #dcd3c6; }
+.t-elegant-list li { padding: 24px 0; border-bottom: 1px solid #dcd3c6; display: flex; flex-direction: column; }
+.t-list-title { font-family: 'Shippori Mincho', serif; font-size: 17px; color: #2c2825; margin-bottom: 6px; }
+.t-list-org { font-size: 15px; font-style: italic; color: #6d635a; }
+.t-list-year { font-family: 'DM Mono', monospace; font-size: 10px; color: #8c8177; margin-top: 12px; }
+
+/* Contact & Footer */
+.t-contact-grid { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid #dcd3c6; margin-bottom: 80px; }
+.t-contact-item { padding: 24px; border-right: 1px solid #dcd3c6; border-bottom: 1px solid #dcd3c6; text-decoration: none; color: inherit; transition: background 0.3s; }
+.t-contact-item:nth-child(even) { border-right: none; }
+.t-contact-item:nth-last-child(-n+2) { border-bottom: none; }
+.t-contact-item:hover { background: rgba(220, 211, 198, 0.2); }
+.t-contact-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: #8c8177; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.t-contact-value { font-size: 15px; word-break: break-all; }
+.t-footer { display: flex; justify-content: space-between; align-items: flex-end; padding-top: 40px; border-top: 1px solid #dcd3c6; }
+.t-footer-brand { font-family: 'Shippori Mincho', serif; font-size: 20px; font-weight: 600; margin-bottom: 8px; }
+.t-footer-copy { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.1em; color: #8c8177; text-transform: uppercase; }
+.t-hanko { width: 48px; height: 48px; border: 2px solid #b84a39; color: #b84a39; display: flex; align-items: center; justify-content: center; font-family: 'Shippori Mincho', serif; font-size: 22px; font-weight: 700; transform: rotate(-8deg); border-radius: 4px; opacity: 0.8; }
+`;
+
+// =====================
+// HOOK: SPRING PHYSICS
+// =====================
+function useCardSpring(cardInnerRef, cardSceneRef) {
+  const st = useRef({
+    rotX: 0, rotY: 0, targetX: 0, targetY: 0,
+    isDragging: false, isHovering: false, didDrag: false,
+    startX: 0, startY: 0, startRotX: 0, startRotY: 0,
+    flipped: false, raf: null,
+  });
+
+  useEffect(() => {
+    const s = st.current;
+    const tick = () => {
+      if (!s.isDragging && !s.isHovering) {
+        s.targetX = 0;
+        s.targetY = s.flipped ? 180 : 0;
+      }
+      const lerpSpeed = s.isDragging ? 0.35 : 0.08;
+      s.rotX += (s.targetX - s.rotX) * lerpSpeed;
+      s.rotY += (s.targetY - s.rotY) * lerpSpeed;
+
+      if (cardInnerRef.current) {
+        cardInnerRef.current.style.transform = `rotateX(${s.rotX.toFixed(2)}deg) rotateY(${s.rotY.toFixed(2)}deg)`;
+        
+        const shine = s.isDragging || Math.abs(s.rotX) > 1 || Math.abs(s.rotY % 180) > 2 ? 1 : 0;
+        const mx = 50 + (s.rotY % 180) * 0.4;
+        const my = 50 - s.rotX * 1.2;
+        cardInnerRef.current.querySelectorAll('.c-face').forEach(f => {
+          f.style.setProperty('--mx', `${mx}%`);
+          f.style.setProperty('--my', `${my}%`);
+          f.style.setProperty('--shine', shine.toString());
+        });
+      }
+      s.raf = requestAnimationFrame(tick);
+    };
+    s.raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(s.raf);
+  }, [cardInnerRef]);
+
+  return st;
+}
+
+// =====================
+// COMPONENT: LINK IN BIO
+// =====================
+function LinkInBio({ onViewPortfolio }) {
+  const [flipped, setFlipped] = useState(false);
+  const cardSceneRef = useRef();
+  const cardInnerRef = useRef();
+  const springRef = useCardSpring(cardInnerRef, cardSceneRef);
+
+  useEffect(() => { springRef.current.flipped = flipped; }, [flipped, springRef]);
+
+  // Pointer Events
+  const onPointerDown = useCallback((e) => {
+    const s = springRef.current;
+    s.isDragging = true; s.isHovering = false; s.didDrag = false;
+    s.startX = e.clientX; s.startY = e.clientY;
+    s.startRotX = s.rotX; s.startRotY = s.rotY;
+    s.targetX = s.rotX; s.targetY = s.rotY;
+    e.currentTarget.setPointerCapture(e.pointerId);
+    cardSceneRef.current?.classList.add('is-grabbing');
+  }, [springRef]);
+
+  const onPointerMove = useCallback((e) => {
+    const s = springRef.current;
+    if (!s.isDragging) return;
+    const dx = e.clientX - s.startX; const dy = e.clientY - s.startY;
+    if (Math.abs(dx) > 5 || Math.abs(dy) > 5) s.didDrag = true;
+    s.targetY = s.startRotY + dx * 0.28;
+    s.targetX = s.startRotX - dy * 0.13;
+  }, [springRef]);
+
+  const onPointerUp = useCallback(() => {
+    const s = springRef.current;
+    s.isDragging = false;
+    cardSceneRef.current?.classList.remove('is-grabbing');
+    if (!s.didDrag) {
+      setFlipped(f => { const next = !f; s.flipped = next; return next; });
+    } else {
+      const normY = ((s.targetY % 360) + 360) % 360;
+      const toBack = normY > 90 && normY < 270;
+      s.flipped = toBack; setFlipped(toBack);
+    }
+  }, [springRef]);
+
+  const onMouseMove = useCallback((e) => {
+    const s = springRef.current;
+    if (s.isDragging) return;
+    const rect = cardSceneRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    s.isHovering = true;
+    s.targetY = (s.flipped ? 180 : 0) + ((e.clientX - rect.left) / rect.width - 0.5) * 18;
+    s.targetX = -((e.clientY - rect.top) / rect.height - 0.5) * 12;
+  }, [springRef]);
+
+  const onMouseLeave = useCallback(() => {
+    if (!springRef.current.isDragging) springRef.current.isHovering = false;
+  }, [springRef]);
+
+  // Actions
+  const handleShare = async () => {
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: PROFILE.brand, url: window.location.href });
+      } else {
+        await navigator.clipboard.writeText(window.location.href);
+        alert('Link disalin!');
+      }
+    } catch (e) { console.log(e); }
+  };
+
+  return (
+    <div className="app-container">
+        {/* Topbar */}
+        <div className="c-topbar">
+            <div className="c-badge">
+                <h1>{PROFILE.brand}</h1>
+                <p>Digital Connect</p>
+            </div>
+            <button className="c-share-btn" onClick={handleShare}>
+                <Share2 size={16} />
+            </button>
+        </div>
+
+        {/* 3D Card Stage */}
+        <div className="c-stage">
+            <div 
+                className="c-scene" ref={cardSceneRef}
+                onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp}
+                onMouseMove={onMouseMove} onMouseLeave={onMouseLeave}
+            >
+                <div className="c-inner" ref={cardInnerRef}>
+                    {/* Front Face (Light - Elegant Minimalist Design) */}
+                    <div className="c-face c-face-front">
+                        <div className="cb-layout">
+                            <div className="cb-corner tl"/><div className="cb-corner tr"/><div className="cb-corner bl"/><div className="cb-corner br"/>
+                            <div className="cb-kanji">{PROFILE.brandKanji}</div>
+                            <div className="cb-brand">{PROFILE.brand}</div>
+                            <div className="cb-kanji" style={{fontSize: 8, marginTop: 4}}>{PROFILE.city} · {PROFILE.est}</div>
+                            <div className="cb-hanko">印</div>
+                        </div>
+                    </div>
+                    {/* Back Face (Dark - Detailed Contact Info) */}
+                    <div className="c-face c-face-back">
+                        <div className="cf-layout">
+                            <div className="cf-top">
+                                <div className="cf-jp">
+                                    <span>名刺 · MEISHI</span>
+                                    <span>CONNECTION CARD</span>
+                                </div>
+                                <div className="cf-brand">
+                                    <h2>{PROFILE.brand}</h2>
+                                    <p>{PROFILE.brandKanji}</p>
+                                </div>
+                            </div>
+                            <div className="cf-mid">
+                                <div className="cf-line" />
+                                <div className="cf-info">
+                                    <div className="cf-name">{PROFILE.nameEn}</div>
+                                    <div className="cf-en">{PROFILE.nameKo}</div>
+                                    <div className="cf-role" style={{lineHeight: 1.4}}>{PROFILE.role}</div>
+                                    <div className="cf-contact">
+                                        <div><span>TEL</span>{PROFILE.tel}</div>
+                                        <div><span>MAIL</span>{PROFILE.mail}</div>
+                                        <div><span>LOC</span>{PROFILE.adr}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="cf-bot">
+                                <span className="cf-tagline">情熱 · 創造 · 解決</span>
+                                <span className="cf-est">Est. {PROFILE.est}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {/* 3D Edges */}
+                    <div className="c-edge c-edge-top" />
+                    <div className="c-edge c-edge-bottom" />
+                    <div className="c-edge c-edge-left" />
+                    <div className="c-edge c-edge-right" />
+                </div>
+            </div>
+        </div>
+
+        {/* Controls */}
+        <div className="c-controls">
+            <div className="c-hint">Drag · Tilt · Tap to Flip</div>
+            <button className="c-flip-btn" onClick={() => setFlipped(!flipped)}>
+                <RefreshCw size={10} /> Flip Card
+            </button>
+        </div>
+
+        {/* Link In Bio */}
+        <div className="b-section">
+            <button className="b-link primary" onClick={onViewPortfolio}>
+                <Briefcase size={18} className="b-icon" />
+                <span>View Full Portfolio</span>
+                <ChevronRight size={16} className="opacity-50" />
+            </button>
+
+            <a className="b-link" href="https://github.com/ghiffa08" target="_blank" rel="noreferrer">
+                <Github size={18} className="b-icon" />
+                <span>GitHub</span>
+                <span className="b-user">@ghiffa08</span>
+            </a>
+            <a className="b-link" href="https://www.linkedin.com/in/haikal-jibran-al-ghiffarry" target="_blank" rel="noreferrer">
+                <Linkedin size={18} className="b-icon" />
+                <span>LinkedIn</span>
+                <span className="b-user">Connect</span>
+            </a>
+            <a className="b-link" href="https://www.instagram.com/haikaljibrn__" target="_blank" rel="noreferrer">
+                <Instagram size={18} className="b-icon" />
+                <span>Instagram</span>
+                <span className="b-user">@haikaljibrn__</span>
+            </a>
+            <a className="b-link" href="https://www.ghiffa.dev" target="_blank" rel="noreferrer">
+                <Globe size={18} className="b-icon" />
+                <span>Website</span>
+                <span className="b-user">ghiffa.dev</span>
+            </a>
+        </div>
+    </div>
+  );
+}
+
+// =====================
+// COMPONENT: DETAIL WORK (SCROLL STYLE)
+// =====================
+const WorkDetail = ({ work, onBack, t, lang }) => {
+    useEffect(() => { window.scrollTo(0, 0); }, []);
+
+    return (
+        <div className="t-paper-bg" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+            <div className="t-container">
+                <nav className="t-nav">
+                    <button onClick={onBack} className="t-btn-back">
+                        <ArrowLeft size={14} strokeWidth={1.5} style={{ transform: lang === 'ar' ? 'rotate(180deg)' : 'none' }} /> {t.navDetailBack}
+                    </button>
+                    <span className="t-font-mono" style={{ fontSize: 10, letterSpacing: '0.3em', color: '#8c8177' }}>
+                        {t.detailSubtitle}
+                    </span>
+                </nav>
+
+                <div className="t-animate-up" style={{ animationDelay: '0.1s' }}>
+                    <header className="t-detail-header">
+                        <h1 className="t-font-mincho t-detail-title">{work.title}</h1>
+                        <div className="t-font-mincho t-detail-jp">{work.titleJp}</div>
+                        <div className="t-detail-tags">
+                            <span className="t-detail-tag dark">{work.year}</span>
+                            <span className="t-detail-tag" style={{ borderStyle: 'dashed' }}>{work.role}</span>
+                        </div>
+                    </header>
+
+                    <div className="t-detail-content">
+                        <p>{work.fullDesc}</p>
+                    </div>
+
+                    <div className="t-detail-jp-content">
+                        <p>{work.fullDescJp}</p>
+                    </div>
+
+                    <div className="t-detail-tags" style={{ marginBottom: '48px', justifyContent: 'flex-start', borderBottom: '1px solid #dcd3c6', paddingBottom: '32px' }}>
+                        {work.tags.map(tag => <span key={tag} className="t-detail-tag" style={{borderColor: '#dcd3c6', color: '#6d635a'}}>{tag}</span>)}
+                    </div>
+
+                    <div className="t-detail-actions">
+                        {work.link !== '#' && (
+                            <a href={work.link} target="_blank" rel="noopener noreferrer" className="t-btn">
+                                <Globe size={16} strokeWidth={1.5} /> {t.btnDemo}
+                            </a>
+                        )}
+                        {work.repo && (
+                            <a href={work.repo} target="_blank" rel="noopener noreferrer" className="t-btn">
+                                <Github size={16} strokeWidth={1.5} /> {t.btnSource}
+                            </a>
+                        )}
+                    </div>
+                </div>
+
+                <footer className="t-footer">
+                    <div>
+                        <div className="t-footer-brand">{PROFILE.brand}</div>
+                        <div className="t-footer-copy">© 2026 {PROFILE.nameEn} · {t.footerCopy}</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    );
+};
+
+// =====================
+// COMPONENT: MAIN PORTFOLIO
+// =====================
+const MainPortfolio = ({ onWorkSelect, lang, setLang, t, onBackToBio }) => {
+    return (
+        <div className="t-paper-bg" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+            <div className="t-container">
+                
+                {/* Nav & Language Switcher */}
+                <nav className="t-nav">
+                    <button onClick={onBackToBio} className="t-btn-back">
+                        <ArrowLeft size={14} strokeWidth={1.5} style={{ transform: lang === 'ar' ? 'rotate(180deg)' : 'none' }} /> {t.navBack}
+                    </button>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                        <span className="t-font-mono" style={{ fontSize: 10, letterSpacing: '0.3em', color: '#8c8177' }}>
+                            {t.navVol}
+                        </span>
+                        
+                        {/* Custom Dropdown */}
+                        <div className="t-lang-switcher">
+                            <button className="t-lang-btn">
+                                <Languages size={14} /> {TRANSLATIONS[lang].langName}
+                            </button>
+                            <div className="t-lang-menu">
+                                {Object.keys(TRANSLATIONS).map(l => (
+                                    <button 
+                                        key={l} 
+                                        className="t-lang-item"
+                                        onClick={() => setLang(l)}
+                                        style={{ fontWeight: lang === l ? 'bold' : 'normal' }}
+                                    >
+                                        {TRANSLATIONS[l].langName}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+
+                {/* Header */}
+                <header className="t-header t-animate-up" style={{ animationDelay: '0.1s' }}>
+                    <div>
+                        <div className="t-font-mincho t-header-title">{PROFILE.brand}</div>
+                        <div className="t-font-mincho t-header-jp">{PROFILE.brandKanji}</div>
+                    </div>
+                    <div className="t-font-mono" style={{ textAlign: lang === 'ar' ? 'left' : 'right' }}>
+                        <div style={{ fontSize: 10, letterSpacing: '0.2em', color: '#8c8177', textTransform: 'uppercase' }}>{t.portfolio}</div>
+                        <div style={{ fontSize: 9, color: '#b84a39', marginTop: 4 }}>{t.est}</div>
+                    </div>
+                </header>
+
+                {/* Hero */}
+                <section className="t-hero t-animate-up" style={{ animationDelay: '0.2s' }}>
+                    <div className="t-hero-stroke" />
+                    <div className="t-hero-content">
+                        <h1 className="t-font-mincho">{PROFILE.nameKo}</h1>
+                        <div className="t-hero-en">{PROFILE.nameEn}</div>
+                        <div className="t-font-mono t-hero-role">
+                            {t.role}
+                        </div>
+                        <div className="t-hero-tagline">
+                            {t.tagline}
+                        </div>
+                    </div>
+                </section>
+
+                {/* --- 01. INTRO --- */}
+                <div className="t-section-header t-animate-up" style={{ animationDelay: '0.3s' }}>
+                    <div className="t-font-mincho t-section-jp-vert">{t.secIntroJp}</div>
+                    <div className="t-section-title">{t.secIntroTitle}</div>
+                    <div className="t-section-line" />
+                </div>
+                <div className="t-bio t-animate-up" style={{ animationDelay: '0.35s' }}>
+                    <p>{t.bio1}</p>
+                    <p>{t.bio2}</p>
+                    <div className="t-bio-jp">{t.bioJp}</div>
+                </div>
+
+                {/* --- 02. EXPERIENCE & EDU --- */}
+                <div className="t-section-header t-animate-up" style={{ animationDelay: '0.4s' }}>
+                    <div className="t-font-mincho t-section-jp-vert">{t.secJourneyJp}</div>
+                    <div className="t-section-title">{t.secJourneyTitle}</div>
+                    <div className="t-section-line" />
+                </div>
+                <div className="t-grid-split t-animate-up" style={{ animationDelay: '0.45s' }}>
+                    <div>
+                        <div className="t-font-mono t-text-faded" style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 24 }}>{t.subExp}</div>
+                        <div className="t-timeline">
+                            {EXPERIENCE.map((exp, idx) => (
+                                <div key={idx} className="t-timeline-item">
+                                    <div className="t-timeline-year">{exp.year}</div>
+                                    <div className="t-timeline-title">{exp.role}</div>
+                                    <div className="t-timeline-org">{exp.org}</div>
+                                    <div className="t-timeline-desc">{exp.desc}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <div>
+                        <div className="t-font-mono t-text-faded" style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 24 }}>{t.subEdu}</div>
+                        <div className="t-timeline" style={{ marginBottom: 40 }}>
+                            {EDUCATION.map((edu, idx) => (
+                                <div key={idx} className="t-timeline-item">
+                                    <div className="t-timeline-year">{edu.year}</div>
+                                    <div className="t-timeline-title">{edu.degree}</div>
+                                    <div className="t-timeline-org">{edu.org}</div>
+                                    <div className="t-timeline-desc">{edu.note}</div>
+                                </div>
+                            ))}
+                        </div>
+                        
+                        <div className="t-font-mono t-text-faded" style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 24 }}>{t.subCert}</div>
+                        <div className="t-timeline">
+                            {CERTIFICATIONS.map((cert, idx) => (
+                                <div key={idx} className="t-timeline-item">
+                                    <div className="t-timeline-year">{cert.year}</div>
+                                    <div className="t-timeline-title">{cert.title}</div>
+                                    <div className="t-timeline-org">{cert.org}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                {/* --- 03. WORKS --- */}
+                <div className="t-section-header t-animate-up" style={{ animationDelay: '0.5s' }}>
+                    <div className="t-font-mincho t-section-jp-vert">{t.secWorksJp}</div>
+                    <div className="t-section-title">{t.secWorksTitle}</div>
+                    <div className="t-section-line" />
+                </div>
+                <div className="t-works-list t-animate-up" style={{ animationDelay: '0.55s' }}>
+                    {WORKS.map((work) => (
+                        <div key={work.id} className="t-work-row" onClick={() => onWorkSelect(work)}>
+                            <div className="t-work-year">{work.year}</div>
+                            <div className="t-work-info">
+                                <h3 className="t-work-title">
+                                    {work.title} 
+                                    <ArrowRight size={18} strokeWidth={1.5} className="t-work-arrow" />
+                                </h3>
+                                <p className="t-work-desc">{work.shortDesc}</p>
+                                <div className="t-work-tags">
+                                    {work.tags.map(tag => <span key={tag} className="t-work-tag">{tag}</span>)}
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                {/* --- 04. HONORS & ORGS --- */}
+                <div className="t-section-header t-animate-up" style={{ animationDelay: '0.6s' }}>
+                    <div className="t-font-mincho t-section-jp-vert">{t.secRecordsJp}</div>
+                    <div className="t-section-title">{t.secRecordsTitle}</div>
+                    <div className="t-section-line" />
+                </div>
+                <div className="t-grid-split t-animate-up" style={{ animationDelay: '0.65s', marginBottom: '80px' }}>
+                    <div>
+                        <div className="t-font-mono t-text-faded" style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 24 }}>{t.subAwards}</div>
+                        <ul className="t-elegant-list">
+                            {AWARDS.map((award, idx) => (
+                                <li key={idx}>
+                                    <span className="t-list-title">{award.title}</span>
+                                    <span className="t-list-org">{award.org}</span>
+                                    <span className="t-list-year">{award.year}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div>
+                        <div className="t-font-mono t-text-faded" style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 24 }}>{t.subAffil}</div>
+                        <ul className="t-elegant-list">
+                            {ORGANIZATIONS.map((org, idx) => (
+                                <li key={idx}>
+                                    <span className="t-list-title">{org.role}</span>
+                                    <span className="t-list-org">{org.org}</span>
+                                    <span className="t-list-year">{org.year}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+
+                {/* --- 05. PUBLICATIONS & IP --- */}
+                <div className="t-section-header t-animate-up" style={{ animationDelay: '0.7s' }}>
+                    <div className="t-font-mincho t-section-jp-vert">{t.secPubJp}</div>
+                    <div className="t-section-title">{t.secPubTitle}</div>
+                    <div className="t-section-line" />
+                </div>
+                <div className="t-grid-split t-animate-up" style={{ animationDelay: '0.75s', marginBottom: '80px' }}>
+                    <div>
+                        <div className="t-font-mono t-text-faded" style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 24 }}>{t.subPub}</div>
+                        <div className="t-timeline">
+                            {PUBLICATIONS.map((pub, idx) => (
+                                <div key={idx} className="t-timeline-item">
+                                    <div className="t-timeline-year">{pub.year}</div>
+                                    <div className="t-timeline-title">{pub.title}</div>
+                                    <div className="t-timeline-org">{pub.org}</div>
+                                    <div className="t-timeline-desc">{pub.note}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <div>
+                        <div className="t-font-mono t-text-faded" style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 24 }}>{t.subIP}</div>
+                        <div className="t-timeline">
+                            {INTELLECTUAL_PROPERTY.map((ip, idx) => (
+                                <div key={idx} className="t-timeline-item">
+                                    <div className="t-timeline-year">{ip.year}</div>
+                                    <div className="t-timeline-title">{ip.title}</div>
+                                    <div className="t-timeline-org">{ip.org}</div>
+                                    <div className="t-timeline-desc">{ip.note}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                {/* --- 06. CONTACT --- */}
+                <div className="t-section-header t-animate-up" style={{ animationDelay: '0.8s' }}>
+                    <div className="t-font-mincho t-section-jp-vert">{t.secEpiJp}</div>
+                    <div className="t-section-title">{t.secEpiTitle}</div>
+                    <div className="t-section-line" />
+                </div>
+                
+                <div className="t-contact-grid t-animate-up" style={{ animationDelay: '0.85s' }}>
+                    <a href={`tel:${PROFILE.tel.replace(/\D/g, '')}`} className="t-contact-item">
+                        <div className="t-contact-label">{t.ctcVoice}</div>
+                        <div className="t-contact-value">{PROFILE.tel}</div>
+                    </a>
+                    <a href={`mailto:${PROFILE.mail}`} className="t-contact-item">
+                        <div className="t-contact-label">{t.ctcLetter} <ExternalLink size={10} style={{margin: '0 4px'}}/></div>
+                        <div className="t-contact-value">{PROFILE.mail}</div>
+                    </a>
+                    <a href={LINKS.find(l => l.name === 'LinkedIn').href} target="_blank" rel="noopener noreferrer" className="t-contact-item">
+                        <div className="t-contact-label">LinkedIn <ExternalLink size={10} style={{margin: '0 4px'}}/></div>
+                        <div className="t-contact-value">Connect</div>
+                    </a>
+                    <a href={LINKS.find(l => l.name === 'GitHub').href} target="_blank" rel="noopener noreferrer" className="t-contact-item">
+                        <div className="t-contact-label">GitHub <ExternalLink size={10} style={{margin: '0 4px'}}/></div>
+                        <div className="t-contact-value">@ghiffa08</div>
+                    </a>
+                </div>
+
+                {/* Footer */}
+                <footer className="t-footer t-animate-up" style={{ animationDelay: '0.9s' }}>
+                    <div>
+                        <div className="t-footer-brand">{PROFILE.brand}</div>
+                        <div className="t-footer-copy">© 2026 {PROFILE.nameEn} · {t.footerCopy}</div>
+                        <div className="t-font-mincho" style={{ fontSize: 10, letterSpacing: '0.25em', color: '#6d635a', marginTop: 8 }}>
+                            {t.footerQuote}
+                        </div>
+                    </div>
+                    <div className="t-hanko"><span>印</span></div>
+                </footer>
+
+            </div>
+        </div>
+    );
+};
+
+// =====================
+// COMPONENT: LANDING MANAGER
+// =====================
+function Landing({ onBackToBio }) {
+    const [lang, setLang] = useState('en');
+    const [activeWork, setActiveWork] = useState(null);
+
+    const t = TRANSLATIONS[lang];
+
+    return (
+        <>
+            {activeWork ? (
+                <WorkDetail work={activeWork} onBack={() => setActiveWork(null)} t={t} lang={lang} />
+            ) : (
+                <MainPortfolio onWorkSelect={setActiveWork} lang={lang} setLang={setLang} t={t} onBackToBio={onBackToBio} />
+            )}
+        </>
+    );
+}
+
+// =====================
+// MAIN APP ROUTER
+// =====================
+export default function App() {
+  const [view, setView] = useState('bio');
+
+  return (
+    <>
+      <style dangerouslySetInnerHTML={{ __html: GLOBAL_STYLES }} />
+      {view === 'bio' ? (
+        <LinkInBio onViewPortfolio={() => setView('portfolio')} />
+      ) : (
+        <Landing onBackToBio={() => setView('bio')} /> 
+      )}
+    </>
+  );
+}
