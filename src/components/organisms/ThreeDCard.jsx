@@ -133,7 +133,6 @@ const ThreeDCard = ({ profile }) => {
                                         <span>CONNECTION CARD</span>
                                     </div>
                                     <div className="cf-brand">
-                                        <h2>{profile.brand}</h2>
                                         <p>{profile.brandKanji}</p>
                                     </div>
                                 </div>
