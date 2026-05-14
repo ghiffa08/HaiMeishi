@@ -42,13 +42,13 @@ export default {
       },
       keyframes: {
         'splash-bg-fade': {
-          '0%, 15%, 80%': { opacity: '1', transform: 'scale(1)' },
-          '100%': { opacity: '0', transform: 'scale(1.05)', pointerEvents: 'none' },
+          '0%, 80%': { opacity: '1' },
+          '100%': { opacity: '0', pointerEvents: 'none' },
         },
         'splash-text-anim': {
-          '0%': { opacity: '0', transform: 'translateY(20px)' },
-          '25%, 75%': { opacity: '1', transform: 'translateY(0)' },
-          '100%': { opacity: '0', transform: 'translateY(-20px) scale(1.1)' },
+          '0%': { opacity: '0' },
+          '30%, 70%': { opacity: '1' },
+          '100%': { opacity: '0' },
         },
         fadeUp: {
           '0%': { opacity: '0', transform: 'translateY(15px)' },
