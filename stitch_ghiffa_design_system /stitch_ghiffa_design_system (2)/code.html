@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Emakimono.io - Records</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&amp;family=Shippori+Mincho:wght@400;500;600;700;800&amp;family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#cfc5bc",
+                        "inverse-on-surface": "#f5f0e8",
+                        "tertiary-fixed-dim": "#b0c6ff",
+                        "secondary-fixed": "#ffdad5",
+                        "secondary-container": "#fc6451",
+                        "ancient-tan": "#9A8D7A",
+                        "sumi-ink": "#1A1510",
+                        "washi-paper": "#F5F0E8",
+                        "secondary": "#b02d21",
+                        "on-tertiary-fixed-variant": "#00429a",
+                        "on-secondary": "#ffffff",
+                        "hanko-red": "#C0392B",
+                        "on-tertiary-container": "#447ff2",
+                        "surface-bright": "#fef9f1",
+                        "on-primary-fixed": "#201b15",
+                        "surface": "#fef9f1",
+                        "secondary-fixed-dim": "#ffb4a9",
+                        "inverse-primary": "#cfc5bc",
+                        "tertiary": "#000000",
+                        "on-surface": "#1d1c17",
+                        "on-secondary-fixed-variant": "#8e130c",
+                        "outline": "#7e766e",
+                        "surface-container-high": "#ece8e0",
+                        "tertiary-fixed": "#d9e2ff",
+                        "primary-fixed": "#ece0d8",
+                        "error": "#ba1a1a",
+                        "on-primary-container": "#8b827b",
+                        "background": "#fef9f1",
+                        "on-surface-variant": "#4c463f",
+                        "on-background": "#1d1c17",
+                        "surface-dim": "#ded9d2",
+                        "surface-variant": "#e7e2da",
+                        "on-primary": "#ffffff",
+                        "inverse-surface": "#32302b",
+                        "surface-container-highest": "#e7e2da",
+                        "primary": "#000000",
+                        "tertiary-container": "#001944",
+                        "primary-container": "#201b15",
+                        "on-tertiary-fixed": "#001944",
+                        "surface-container": "#f2ede5",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#410000",
+                        "circuit-blue": "#1A62D4",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#f8f3eb",
+                        "on-secondary-container": "#650001",
+                        "on-primary-fixed-variant": "#4c463f",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#cfc5bc",
+                        "surface-tint": "#655d56"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "gutter": "24px",
+                        "stack-md": "16px",
+                        "margin-page": "40px",
+                        "grid-unit": "80px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Shippori Mincho"],
+                        "data-label": ["DM Mono"],
+                        "data-value": ["DM Mono"],
+                        "body-md": ["Shippori Mincho"],
+                        "headline-xl": ["Shippori Mincho"],
+                        "headline-lg": ["Shippori Mincho"],
+                        "body-lg": ["Shippori Mincho"],
+                        "accent-italic": ["ebGaramond"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "data-label": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "data-value": ["14px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-xl": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["40px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "body-lg": ["20px", {"lineHeight": "1.7", "fontWeight": "400"}],
+                        "accent-italic": ["18px", {"lineHeight": "1.5", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.05;
+            background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+        }
+        .vertical-text {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+        .bg-grid {
+            background-size: 80px 80px;
+            background-image: linear-gradient(to right, #9A8D7A 1px, transparent 1px);
+        }
+        @media (max-width: 768px) {
+            .bg-grid {
+                background-size: 40px 40px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-washi-paper text-sumi-ink min-h-screen relative overflow-x-hidden font-body-md selection:bg-hanko-red/20">
+<div class="noise-overlay"></div>
+<div class="fixed inset-0 bg-grid opacity-20 pointer-events-none z-0"></div>
+<!-- TopAppBar -->
+<header class="docked full-width top-0 sticky z-50 bg-washi-paper/90 dark:bg-sumi-ink/90 border-b border-ancient-tan flex justify-between items-center w-full px-margin-page py-4 backdrop-blur-sm">
+<div class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-sumi-ink dark:text-washi-paper tracking-tighter">EMAKIMONO.IO</div>
+<nav class="hidden md:flex gap-gutter">
+<a class="font-data-label text-data-label text-on-surface-variant hover:text-primary transition-colors hover:bg-primary-fixed/10 dark:hover:bg-primary-container/20 px-2 py-1" href="#">Archive</a>
+<a class="font-data-label text-data-label text-hanko-red border-b-2 border-hanko-red pb-1 px-2 py-1 opacity-80 transition-opacity" href="#">Specs</a>
+<a class="font-data-label text-data-label text-on-surface-variant hover:text-primary transition-colors hover:bg-primary-fixed/10 dark:hover:bg-primary-container/20 px-2 py-1" href="#">Hardware</a>
+<a class="font-data-label text-data-label text-on-surface-variant hover:text-primary transition-colors hover:bg-primary-fixed/10 dark:hover:bg-primary-container/20 px-2 py-1" href="#">Research</a>
+</nav>
+<div class="flex items-center gap-stack-md">
+<span class="font-data-label text-data-label text-on-surface-variant">JP/EN</span>
+<button class="md:hidden flex items-center justify-center p-2 text-sumi-ink">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="hidden md:flex fixed right-8 top-1/2 -translate-y-1/2 flex-col items-center gap-stack-lg z-40">
+<div class="flex flex-col items-center mb-gutter">
+<span class="font-headline-lg text-hanko-red text-2xl border border-hanko-red p-1 mb-2 vertical-text">印</span>
+<span class="font-data-label text-data-label text-sumi-ink vertical-text tracking-widest">K. TANAKA</span>
+<span class="font-data-value text-data-value text-ancient-tan mt-2 vertical-text text-xs">IoT systems</span>
+</div>
+<nav class="flex flex-col gap-stack-md">
+<a class="flex flex-col items-center group hover:translate-x-[-2px] transition-transform" href="#">
+<span class="material-symbols-outlined text-ancient-tan group-hover:text-sumi-ink mb-2 transition-all" data-icon="person_niche">PersonSimple</span>
+<span class="font-data-label text-data-label text-ancient-tan [writing-mode:vertical-rl] py-4 group-hover:text-sumi-ink transition-all">Bio</span>
+</a>
+<a class="flex flex-col items-center group scale-110" href="#">
+<span class="material-symbols-outlined text-hanko-red mb-2" data-icon="settings_input_component">settings_input_component</span>
+<span class="font-data-label text-data-label text-hanko-red font-bold [writing-mode:vertical-rl] py-4 border-r border-hanko-red">Circuits</span>
+</a>
+<a class="flex flex-col items-center group hover:translate-x-[-2px] transition-transform" href="#">
+<span class="material-symbols-outlined text-ancient-tan group-hover:text-sumi-ink mb-2 transition-all" data-icon="terminal">terminal</span>
+<span class="font-data-label text-data-label text-ancient-tan [writing-mode:vertical-rl] py-4 group-hover:text-sumi-ink transition-all">Protocols</span>
+</a>
+<a class="flex flex-col items-center group hover:translate-x-[-2px] transition-transform" href="#">
+<span class="material-symbols-outlined text-ancient-tan group-hover:text-sumi-ink mb-2 transition-all" data-icon="mail">mail</span>
+<span class="font-data-label text-data-label text-ancient-tan [writing-mode:vertical-rl] py-4 group-hover:text-sumi-ink transition-all">Contact</span>
+</a>
+</nav>
+</aside>
+<main class="relative z-10 w-full max-w-7xl mx-auto px-margin-page py-24 md:py-32 flex flex-col md:flex-row gap-gutter">
+<!-- Section Title -->
+<div class="md:w-32 flex-shrink-0 flex justify-end md:border-r border-ancient-tan/30 pr-gutter relative">
+<h1 class="font-headline-xl text-headline-xl text-sumi-ink vertical-text hidden md:block">其の三 ・ Records</h1>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-sumi-ink md:hidden mb-stack-lg border-b border-ancient-tan/30 pb-4 w-full">其の三 ・ Records</h1>
+</div>
+<!-- Content Area -->
+<div class="flex-grow flex flex-col gap-grid-unit">
+<!-- Achievements List -->
+<section class="space-y-stack-lg relative">
+<div class="absolute left-[-40px] top-0 bottom-0 w-px bg-ancient-tan/20 hidden md:block"></div>
+<div class="group relative flex flex-col md:flex-row gap-stack-md items-start p-6 border border-ancient-tan/20 bg-washi-paper/50 hover:bg-surface-container transition-colors duration-300">
+<div class="font-data-value text-data-value text-ancient-tan md:w-32 flex-shrink-0 pt-1 border-b md:border-b-0 md:border-r border-ancient-tan/30 pb-2 md:pb-0 md:pr-4">
+                        2023.11<br/>
+<span class="text-hanko-red">1st Place</span>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg text-sumi-ink mb-2 group-hover:text-circuit-blue transition-colors">National IoT Protocol Design Competition</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Developed an ultra-low power mesh networking protocol for agricultural sensors, reducing energy consumption by 40% compared to standard Zigbee implementations.</p>
+<div class="flex gap-2 mt-4 flex-wrap">
+<span class="px-2 py-1 border border-ancient-tan text-[10px] font-data-label text-sumi-ink uppercase">Embedded C</span>
+<span class="px-2 py-1 border border-ancient-tan text-[10px] font-data-label text-sumi-ink uppercase">Mesh Networking</span>
+</div>
+</div>
+</div>
+<div class="group relative flex flex-col md:flex-row gap-stack-md items-start p-6 border border-ancient-tan/20 bg-washi-paper/50 hover:bg-surface-container transition-colors duration-300">
+<div class="font-data-value text-data-value text-ancient-tan md:w-32 flex-shrink-0 pt-1 border-b md:border-b-0 md:border-r border-ancient-tan/30 pb-2 md:pb-0 md:pr-4">
+                        2022.08<br/>
+<span class="text-circuit-blue">Finalist</span>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg text-sumi-ink mb-2 group-hover:text-circuit-blue transition-colors">Pilmapres (National Outstanding Student Selection)</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Recognized for academic excellence and the prototype development of a non-invasive biometric monitoring wearable utilizing flexible PCB substrates.</p>
+<div class="flex gap-2 mt-4 flex-wrap">
+<span class="px-2 py-1 border border-ancient-tan text-[10px] font-data-label text-sumi-ink uppercase">Hardware Design</span>
+<span class="px-2 py-1 border border-ancient-tan text-[10px] font-data-label text-sumi-ink uppercase">Biometrics</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Organizational Experience Gallery -->
+<section class="mt-grid-unit">
+<h2 class="font-headline-lg text-headline-lg text-sumi-ink mb-stack-lg flex items-center gap-4">
+<span class="w-8 h-px bg-ancient-tan block"></span>
+                    Organizations
+                </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Meishi Card Style -->
+<div class="relative h-64 border border-ancient-tan/50 bg-washi-paper p-6 flex flex-col justify-between group overflow-hidden" style="transform-style: preserve-3d; transition: transform 0.6s; box-shadow: 4px 4px 0px rgba(26, 21, 16, 0.1);">
+<div class="absolute inset-0 bg-gradient-to-br from-surface-container/0 to-ancient-tan/5 pointer-events-none"></div>
+<div class="relative z-10 flex justify-between items-start">
+<h3 class="font-body-lg text-body-lg text-sumi-ink font-bold w-2/3">Robotics Engineering Society</h3>
+<span class="font-data-value text-data-value text-ancient-tan text-right">2021<br/>-2023</span>
+</div>
+<div class="relative z-10">
+<p class="font-data-label text-data-label text-circuit-blue mb-1">Technical Lead</p>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Managed a team of 15 engineers developing autonomous navigation algorithms for warehouse logistics robots.</p>
+</div>
+<!-- Decorative stamp -->
+<div class="absolute -right-4 -bottom-4 text-ancient-tan/10 font-headline-xl text-9xl pointer-events-none transform rotate-12">機</div>
+</div>
+<div class="relative h-64 border border-ancient-tan/50 bg-washi-paper p-6 flex flex-col justify-between group overflow-hidden" style="transform-style: preserve-3d; transition: transform 0.6s; box-shadow: 4px 4px 0px rgba(26, 21, 16, 0.1);">
+<div class="absolute inset-0 bg-gradient-to-br from-surface-container/0 to-ancient-tan/5 pointer-events-none"></div>
+<div class="relative z-10 flex justify-between items-start">
+<h3 class="font-body-lg text-body-lg text-sumi-ink font-bold w-2/3">IEEE Student Branch</h3>
+<span class="font-data-value text-data-value text-ancient-tan text-right">2020<br/>-2022</span>
+</div>
+<div class="relative z-10">
+<p class="font-data-label text-data-label text-hanko-red mb-1">Events Coordinator</p>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Organized hardware hackathons and industry seminars, fostering collaboration between academia and local tech firms.</p>
+</div>
+<!-- Decorative stamp -->
+<div class="absolute -right-4 -bottom-4 text-ancient-tan/10 font-headline-xl text-9xl pointer-events-none transform -rotate-12">電</div>
+</div>
+</div>
+</section>
+<!-- Closing Hanko Seal -->
+<div class="mt-32 flex justify-center md:justify-end w-full border-t border-ancient-tan/30 pt-16 relative">
+<div class="absolute left-1/2 -top-[1px] -translate-x-1/2 w-4 h-[2px] bg-ancient-tan"></div>
+<div class="flex flex-col items-center gap-4 group cursor-pointer">
+<span class="font-accent-italic text-accent-italic text-ancient-tan">Epilogue</span>
+<div class="w-16 h-16 border-2 border-hanko-red flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-500 bg-washi-paper relative">
+<div class="absolute inset-0 bg-hanko-red/5"></div>
+<span class="font-headline-lg text-headline-lg text-hanko-red leading-none">了</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-stack-lg px-margin-page flex flex-col md:flex-row justify-between items-center gap-stack-md bg-washi-paper dark:bg-sumi-ink border-t border-ancient-tan relative z-20">
+<div class="font-headline-lg text-headline-lg text-hanko-red">EMAKIMONO</div>
+<p class="font-data-value text-data-value text-on-surface">© 2024 PRECISION &amp; TRADITION. ALL RIGHTS RESERVED.</p>
+<div class="flex gap-stack-md">
+<a class="font-data-value text-data-value text-on-surface-variant hover:text-hanko-red hover:underline decoration-hanko-red decoration-2 hover:tracking-widest transition-all duration-500" href="#">Schematics</a>
+<a class="font-data-value text-data-value text-on-surface-variant hover:text-hanko-red hover:underline decoration-hanko-red decoration-2 hover:tracking-widest transition-all duration-500" href="#">GitHub</a>
+<a class="font-data-value text-data-value text-on-surface-variant hover:text-hanko-red hover:underline decoration-hanko-red decoration-2 hover:tracking-widest transition-all duration-500" href="#">LinkedIn</a>
+</div>
+</footer>
+</body></html>

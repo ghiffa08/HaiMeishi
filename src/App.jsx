@@ -33,7 +33,7 @@ function PortfolioLayout() {
       const timer = setTimeout(() => {
         setView(nextView);
         setNextView(null);
-        setTimeout(() => setIsTransitioning(false), 800);
+        setTimeout(() => setIsTransitioning(false), 1200);
       }, 500);
       return () => clearTimeout(timer);
     }

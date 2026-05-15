@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Haikal Jibran Al-Ghiffarry - Portfolio Scroll</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=EB+Garamond:ital,wght@0,400;0,700;1,400&amp;family=Shippori+Mincho:wght@400;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "outline-variant": "#cfc5bc",
+                      "hanko-red": "#C0392B",
+                      "background": "#fef9f1",
+                      "sumi-ink": "#1A1510",
+                      "inverse-on-surface": "#f5f0e8",
+                      "on-error-container": "#93000a",
+                      "primary-fixed": "#ece0d8",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-fixed-variant": "#4c463f",
+                      "primary": "#000000",
+                      "secondary": "#b02d21",
+                      "surface-dim": "#ded9d2",
+                      "on-secondary-container": "#650001",
+                      "inverse-primary": "#cfc5bc",
+                      "on-tertiary": "#ffffff",
+                      "tertiary": "#000000",
+                      "on-tertiary-fixed": "#001944",
+                      "error-container": "#ffdad6",
+                      "on-background": "#1d1c17",
+                      "surface": "#fef9f1",
+                      "on-error": "#ffffff",
+                      "tertiary-fixed-dim": "#b0c6ff",
+                      "inverse-surface": "#32302b",
+                      "on-tertiary-container": "#447ff2",
+                      "on-primary-fixed": "#201b15",
+                      "ancient-tan": "#9A8D7A",
+                      "surface-tint": "#655d56",
+                      "secondary-fixed-dim": "#ffb4a9",
+                      "on-secondary-fixed": "#410000",
+                      "circuit-blue": "#1A62D4",
+                      "surface-bright": "#fef9f1",
+                      "on-primary-container": "#8b827b",
+                      "primary-fixed-dim": "#cfc5bc",
+                      "secondary-container": "#fc6451",
+                      "primary-container": "#201b15",
+                      "on-secondary": "#ffffff",
+                      "on-secondary-fixed-variant": "#8e130c",
+                      "secondary-fixed": "#ffdad5",
+                      "tertiary-container": "#001944",
+                      "on-surface-variant": "#4c463f",
+                      "tertiary-fixed": "#d9e2ff",
+                      "error": "#ba1a1a",
+                      "surface-container-highest": "#e7e2da",
+                      "outline": "#7e766e",
+                      "on-surface": "#1d1c17",
+                      "on-tertiary-fixed-variant": "#00429a",
+                      "surface-variant": "#e7e2da",
+                      "surface-container-low": "#f8f3eb",
+                      "surface-container": "#f2ede5",
+                      "washi-paper": "#F5F0E8",
+                      "surface-container-high": "#ece8e0",
+                      "on-primary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "margin-page": "40px",
+                      "grid-unit": "80px",
+                      "stack-sm": "8px",
+                      "stack-lg": "32px",
+                      "stack-md": "16px"
+              },
+              "fontFamily": {
+                      "headline-xl": [
+                              "Shippori Mincho"
+                      ],
+                      "data-value": [
+                              "DM Mono"
+                      ],
+                      "headline-lg": [
+                              "Shippori Mincho"
+                      ],
+                      "body-md": [
+                              "Shippori Mincho"
+                      ],
+                      "body-lg": [
+                              "Shippori Mincho"
+                      ],
+                      "accent-italic": [
+                              "ebGaramond"
+                      ],
+                      "headline-lg-mobile": [
+                              "Shippori Mincho"
+                      ],
+                      "data-label": [
+                              "DM Mono"
+                      ]
+              },
+              "fontSize": {
+                      "headline-xl": [
+                              "64px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "data-value": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "40px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "20px",
+                              {
+                                      "lineHeight": "1.7",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "accent-italic": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "data-label": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        body {
+            background-color: #F5F0E8;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            color: #1A1510;
+        }
+        .bg-grid {
+            background-image: linear-gradient(to right, #9A8D7A 1px, transparent 1px);
+            background-size: 80px 100%;
+        }
+        .stipple-shadow {
+            box-shadow: 4px 4px 0px 0px rgba(192, 57, 43, 0.1);
+        }
+        @media (max-width: 768px) {
+            .bg-grid {
+                background-size: 40px 100%;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen relative overflow-x-hidden selection:bg-hanko-red selection:text-washi-paper">
+<!-- Top App Bar -->
+<header class="docked full-width top-0 sticky z-50 bg-washi-paper/90 dark:bg-sumi-ink/90 border-b border-ancient-tan backdrop-blur-sm flex justify-between items-center w-full px-margin-page py-4">
+<div class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-sumi-ink dark:text-washi-paper tracking-tighter">EMAKIMONO.IO</div>
+<nav class="hidden md:flex gap-stack-lg">
+<a class="font-data-label text-data-label text-on-surface-variant hover:text-primary transition-colors hover:bg-primary-fixed/10 dark:hover:bg-primary-container/20 px-2 py-1" href="#">Archive</a>
+<a class="font-data-label text-data-label text-hanko-red border-b-2 border-hanko-red pb-1 hover:bg-primary-fixed/10 dark:hover:bg-primary-container/20 px-2 py-1 opacity-80 transition-opacity" href="#">Specs</a>
+<a class="font-data-label text-data-label text-on-surface-variant hover:text-primary transition-colors hover:bg-primary-fixed/10 dark:hover:bg-primary-container/20 px-2 py-1" href="#">Hardware</a>
+<a class="font-data-label text-data-label text-on-surface-variant hover:text-primary transition-colors hover:bg-primary-fixed/10 dark:hover:bg-primary-container/20 px-2 py-1" href="#">Research</a>
+</nav>
+<div class="flex items-center gap-stack-md text-primary dark:text-on-primary-fixed">
+<span class="font-data-label text-data-label cursor-pointer">JP/EN</span>
+<button class="md:hidden">
+<span class="material-symbols-outlined font-headline-lg text-headline-lg">menu</span>
+</button>
+</div>
+</header>
+<!-- Side Nav Bar (Desktop Only) -->
+<nav class="hidden md:flex fixed right-8 top-1/2 -translate-y-1/2 flex-col items-center gap-stack-lg z-40 bg-transparent">
+<div class="mb-stack-lg flex flex-col items-center">
+<div class="font-headline-xl text-hanko-red mb-2" title="Engineer Hanko Signature">印</div>
+<div class="font-data-label text-data-label text-hanko-red text-center">K. TANAKA<br/><span class="text-xs text-ancient-tan">IoT systems</span></div>
+</div>
+<a class="text-hanko-red font-bold [writing-mode:vertical-rl] py-4 border-r border-hanko-red hover:translate-x-[-2px] transition-transform scale-110 font-data-label text-data-label flex items-center gap-2" href="#prologue">
+<span class="material-symbols-outlined text-sm">PersonSimple</span> Bio
+        </a>
+<a class="text-ancient-tan [writing-mode:vertical-rl] py-4 hover:text-sumi-ink transition-all hover:translate-x-[-2px] font-data-label text-data-label flex items-center gap-2" href="#journey">
+<span class="material-symbols-outlined text-sm">settings_input_component</span> Circuits
+        </a>
+<a class="text-ancient-tan [writing-mode:vertical-rl] py-4 hover:text-sumi-ink transition-all hover:translate-x-[-2px] font-data-label text-data-label flex items-center gap-2" href="#archives">
+<span class="material-symbols-outlined text-sm">terminal</span> Protocols
+        </a>
+<a class="text-ancient-tan [writing-mode:vertical-rl] py-4 hover:text-sumi-ink transition-all hover:translate-x-[-2px] font-data-label text-data-label flex items-center gap-2" href="#epilogue">
+<span class="material-symbols-outlined text-sm">mail</span> Contact
+        </a>
+</nav>
+<main class="bg-grid w-full h-full relative">
+<div class="max-w-[1200px] mx-auto px-margin-page md:pr-[120px] pb-32">
+<!-- Prologue -->
+<section class="min-h-screen flex flex-col justify-center py-stack-lg border-b border-ancient-tan relative" id="prologue">
+<div class="absolute right-0 top-1/4 text-ancient-tan opacity-20 text-[120px] font-headline-xl leading-none select-none z-0">
+                    序
+                </div>
+<div class="relative z-10 grid md:grid-cols-2 gap-stack-lg items-center">
+<div>
+<h1 class="font-headline-xl text-headline-xl text-sumi-ink mb-stack-md">Haikal Jibran Al-Ghiffarry</h1>
+<p class="font-data-label text-data-label text-ancient-tan mb-stack-lg tracking-widest">[ INFORMATICS ENGINEERING / IOT SPECIALIST ]</p>
+<p class="font-body-lg text-body-lg text-sumi-ink mb-stack-lg max-w-lg leading-relaxed">
+                            Forging connections between the physical and digital realms. Specializing in robust IoT architectures and elegant software solutions. Merging traditional engineering principles with modern innovation.
+                        </p>
+<button class="border border-sumi-ink px-6 py-3 font-headline-lg-mobile text-body-md hover:bg-sumi-ink hover:text-washi-paper transition-colors duration-300">
+                            Explore Archives
+                        </button>
+</div>
+<div class="relative">
+<div class="w-full aspect-[3/4] bg-washi-paper border border-ancient-tan stipple-shadow p-4 relative overflow-hidden group">
+<div class="absolute inset-0 bg-sumi-ink/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none"></div>
+<img alt="Abstract code and hardware visualization" class="w-full h-full object-cover filter grayscale contrast-125" data-alt="A highly detailed close-up shot of complex electronic circuit boards integrated with glowing blue fiber optic cables, illuminated in a high-key minimalist setting. The mood is highly technical and precise, embodying a modern engineering aesthetic. Deep blacks contrast sharply with pristine whites and subtle blue glows, all subtly overlayed with a light film grain texture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCv21mDP1UgcmC6q5OfW_KvJh74VzyjVDws0d4LjUoTz9oYwnH52niGON6UdkR4ws86OYWrO8hH9dHHZqVeruIZ7F445TjoJnvG7U984RS8WtbHx2V4cg_rGo9M1urYMkosRoPAkyNSpe12-vramiMl3pyxXMVNLiFyBlP_UMrvAIvdEpqirYj7yipo0de1oHc0T2t1ulOQShh-ySQUWlrqjYsdbrxjSvdubhqSVuMlsDTRva0IKHKLD_QL2OPnCWJA4ggVP2oTkOo"/>
+<div class="absolute bottom-4 right-4 bg-washi-paper px-2 py-1 border border-ancient-tan font-data-value text-data-value text-xs z-20">
+                                FIG. 01
+                             </div>
+</div>
+</div>
+</div>
+</section>
+<!-- Journey -->
+<section class="py-32 border-b border-ancient-tan relative" id="journey">
+<div class="absolute right-0 top-16 text-ancient-tan opacity-20 text-[120px] font-headline-xl leading-none select-none z-0">
+                    旅
+                </div>
+<div class="flex flex-col md:flex-row gap-stack-lg relative z-10">
+<div class="md:w-1/4">
+<h2 class="font-headline-lg text-headline-lg text-sumi-ink [writing-mode:vertical-rl] h-48 border-l-2 border-hanko-red pl-4">其の一・Journey</h2>
+</div>
+<div class="md:w-3/4 space-y-16 border-l border-ancient-tan pl-stack-lg relative">
+<!-- Timeline Item 1 -->
+<div class="relative">
+<div class="absolute -left-[49px] top-1 w-4 h-4 bg-hanko-red rotate-45 border border-washi-paper"></div>
+<div class="font-data-value text-data-value text-ancient-tan mb-2">2021 — PRESENT</div>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-sumi-ink mb-2">B.Sc. Informatics Engineering</h3>
+<p class="font-body-md text-body-md text-surface-tint mb-4">University of Technology</p>
+<div class="flex gap-2 flex-wrap">
+<span class="border border-ancient-tan px-2 py-1 font-data-label text-data-label text-[10px] text-sumi-ink">GPA: 3.92</span>
+<span class="border border-ancient-tan px-2 py-1 font-data-label text-data-label text-[10px] text-sumi-ink">IoT FOCUS</span>
+</div>
+</div>
+<!-- Timeline Item 2 -->
+<div class="relative">
+<div class="absolute -left-[49px] top-1 w-4 h-4 bg-surface-dim border border-ancient-tan rotate-45"></div>
+<div class="font-data-value text-data-value text-ancient-tan mb-2">2023</div>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-sumi-ink mb-2">IoT Systems Developer Intern</h3>
+<p class="font-body-md text-body-md text-surface-tint mb-4">TechCorp Solutions</p>
+<p class="font-body-md text-body-md text-sumi-ink max-w-2xl">Developed firmware for ESP32-based environmental monitoring systems. Implemented MQTT protocols for real-time data transmission to a custom dashboard.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Archives -->
+<section class="py-32 border-b border-ancient-tan relative" id="archives">
+<div class="absolute right-0 top-16 text-ancient-tan opacity-20 text-[120px] font-headline-xl leading-none select-none z-0">
+                    庫
+                </div>
+<div class="relative z-10 mb-stack-lg flex items-end justify-between">
+<h2 class="font-headline-lg text-headline-lg text-sumi-ink border-b-2 border-hanko-red pb-2 inline-block">其の二・Archives</h2>
+<span class="font-data-value text-data-value text-ancient-tan hidden md:block">SELECT PROJECTS</span>
+</div>
+<div class="grid md:grid-cols-2 gap-grid-unit">
+<!-- Project Card 1 -->
+<div class="group cursor-pointer">
+<div class="border border-ancient-tan bg-washi-paper p-2 stipple-shadow transition-transform duration-300 group-hover:-translate-y-2 relative">
+<div class="absolute top-0 right-0 w-8 h-8 bg-surface-dim border-b border-l border-ancient-tan flex items-center justify-center">
+<span class="font-data-label text-data-label text-[10px]">01</span>
+</div>
+<div class="aspect-video bg-surface-dim overflow-hidden relative border border-ancient-tan mb-4">
+<img alt="Smart Home Hub" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500" data-alt="A macro photograph of an intricate microchip on a pristine green circuit board, softly lit to emphasize the metallic traces. The scene evokes a sense of deep technological research and precision engineering. The overall color palette leans heavily into deep blacks, stark whites, and subtle metallic grays, unified by a light vintage paper grain texture overlay." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcDXo7fa3gwpcc86rNI92nR_H6kujoMQrThS30TAX-zLf7pgCQCwjAiNLmGR8jltZPTHlw5FswrAdRfdrkM5MxgYhgXQ2bjhn2slU0_fAwS11fuDUoQOqkT5w-jk7AVycShzwckOnphYrjVc9ii-RDpx-hqMhFSuqi2WMEc28qsPjh1qVxU3hFWaAc12of40pGPzF9XhaCjj19fEoCw8JUe2eoNE0OxPNJJyoSXBIb_flGKK9y_jb2IY1MwhINgzKuPcZxCpRDMSs"/>
+</div>
+<div class="px-2 pb-2">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-sumi-ink mb-1 group-hover:text-circuit-blue transition-colors">Smart Home Hub Architecture</h3>
+<p class="font-data-value text-data-value text-ancient-tan mb-4">ESP32 / MQTT / React</p>
+<p class="font-body-md text-body-md text-surface-tint">A localized smart home hub prioritizing privacy, utilizing edge computing for sensor data processing.</p>
+</div>
+</div>
+</div>
+<!-- Project Card 2 -->
+<div class="group cursor-pointer">
+<div class="border border-ancient-tan bg-washi-paper p-2 stipple-shadow transition-transform duration-300 group-hover:-translate-y-2 relative">
+<div class="absolute top-0 right-0 w-8 h-8 bg-surface-dim border-b border-l border-ancient-tan flex items-center justify-center">
+<span class="font-data-label text-data-label text-[10px]">02</span>
+</div>
+<div class="aspect-video bg-surface-dim overflow-hidden relative border border-ancient-tan mb-4">
+<img alt="Code Matrix" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500" data-alt="A dimly lit close-up of a computer monitor displaying cascading lines of monospace green code against a pitch-black background. The perspective is slightly angled, creating a shallow depth of field. The aesthetic is heavily cyberpunk yet clean, grounded in a minimalist structure with sharp contrast and a faint layer of digital static noise." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuPXWhHx_d1-Ui3XU4__APdbijsu0iPg58llxB8U5IZXL-wuOVQI-l6ObkGkZZhfdYg-Ex7Nz3qquyPwV-oZTeUVja-565lzJcnd_8Zx1bGSxOuOlXbsV99MQEcPvmgjK11NM7XExUpG4r87BGS6VIdnyn1ZCsdnAduTEd_eExS8kKrJbhTLN7LO7OfaK5G3kjLdoiuSTr3riGBJ7FOli0_eX7zxmhDfOYJoIuOshoLQyuVeKXXIQ-KXYaV13He5uWjYUguhwaxsQ"/>
+</div>
+<div class="px-2 pb-2">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-sumi-ink mb-1 group-hover:text-circuit-blue transition-colors">Distributed Sensor Network</h3>
+<p class="font-data-value text-data-value text-ancient-tan mb-4">C++ / LoRaWAN / InfluxDB</p>
+<p class="font-body-md text-body-md text-surface-tint">Agricultural monitoring system using low-power wide-area network protocols for soil moisture tracking.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-stack-lg px-margin-page flex flex-col md:flex-row justify-between items-center gap-stack-md bg-washi-paper dark:bg-sumi-ink border-t border-ancient-tan z-50 relative">
+<div class="font-headline-lg text-hanko-red border border-hanko-red p-1 w-12 h-12 flex items-center justify-center rotate-[-5deg]">
+            印
+        </div>
+<div class="flex gap-stack-md">
+<a class="font-data-value text-data-value text-on-surface-variant hover:text-hanko-red hover:underline decoration-hanko-red decoration-2 hover:tracking-widest transition-all duration-500" href="#">Schematics</a>
+<a class="font-data-value text-data-value text-on-surface-variant hover:text-hanko-red hover:underline decoration-hanko-red decoration-2 hover:tracking-widest transition-all duration-500" href="#">GitHub</a>
+<a class="font-data-value text-data-value text-on-surface-variant hover:text-hanko-red hover:underline decoration-hanko-red decoration-2 hover:tracking-widest transition-all duration-500" href="#">LinkedIn</a>
+</div>
+<div class="font-data-value text-data-value text-on-surface">
+            © 2024 PRECISION &amp; TRADITION. ALL RIGHTS RESERVED.
+        </div>
+</footer>
+</body></html>

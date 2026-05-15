@@ -105,7 +105,7 @@ const ThreeDCard = ({ profile }) => {
     }, []);
 
     return (
-        <>
+        <div className="flex flex-col items-center">
             {/* 3D Card Stage */}
             <div className="w-full flex justify-center py-10 sm:py-16 shrink-0 relative z-10">
                 <div 
@@ -114,7 +114,7 @@ const ThreeDCard = ({ profile }) => {
                     onMouseMove={onMouseMove} onMouseLeave={onMouseLeave}
                 >
                     <div className="c-inner" ref={cardInnerRef}>
-                        {/* Front Face */}
+                        {/* Front Face (Light - Elegant Minimalist Design) */}
                         <div className="c-face c-face-front">
                             <div className="cb-layout">
                                 <div className="cb-corner tl"/><div className="cb-corner tr"/><div className="cb-corner bl"/><div className="cb-corner br"/>
@@ -124,7 +124,7 @@ const ThreeDCard = ({ profile }) => {
                                 <div className="cb-hanko">印</div>
                             </div>
                         </div>
-                        {/* Back Face */}
+                        {/* Back Face (Dark - Detailed Contact Info) */}
                         <div className="c-face c-face-back">
                             <div className="cf-layout">
                                 <div className="cf-top">
@@ -133,19 +133,20 @@ const ThreeDCard = ({ profile }) => {
                                         <span>CONNECTION CARD</span>
                                     </div>
                                     <div className="cf-brand">
+                                        <h2>{profile.brand}</h2>
                                         <p>{profile.brandKanji}</p>
                                     </div>
                                 </div>
                                 <div className="cf-mid">
                                     <div className="cf-line" />
                                     <div className="cf-info">
-                                        <div className="cf-name">{profile.nameEn}</div>
-                                        <div className="cf-en">{profile.nameKo}</div>
+                                        <div className="cf-name">{profile.nameEn || profile.name}</div>
+                                        <div className="cf-en">{profile.nameKo || profile.nameJp || ''}</div>
                                         <div className="cf-role" style={{lineHeight: 1.4}}>{profile.role}</div>
                                         <div className="cf-contact">
                                             <div><span>TEL</span>{profile.tel}</div>
                                             <div><span>MAIL</span>{profile.mail}</div>
-                                            <div><span>LOC</span>{profile.adr}</div>
+                                            <div><span>LOC</span>{profile.adr || profile.city}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -165,16 +166,16 @@ const ThreeDCard = ({ profile }) => {
             </div>
 
             {/* Controls */}
-            <div className="flex flex-col items-center gap-2 mb-8 relative z-10">
-                <div className="text-[8px] sm:text-[9px] tracking-[0.3em] text-ink-faded uppercase font-mono">Drag · Tilt · Tap to Flip</div>
+            <div className="flex flex-col items-center gap-3 mt-8 relative z-10">
+                <div className="text-[8px] sm:text-[9px] tracking-[0.4em] text-ancient-tan uppercase font-mono">Drag · Tilt · Tap to Flip</div>
                 <button 
-                    className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-ink/20 text-ink font-mono text-[8px] sm:text-[9px] tracking-jp-normal uppercase transition-all hover:bg-ink/5 min-h-[44px]" 
+                    className="flex items-center gap-2 px-6 py-3 rounded-none border border-sumi-ink/20 text-sumi-ink font-mono text-[9px] tracking-widest uppercase transition-all hover:bg-sumi-ink/5 min-h-[44px] bg-white/5 backdrop-blur-sm" 
                     onClick={() => setFlipped(!flipped)}
                 >
-                    <RefreshCw size={10} /> Flip Card
+                    <RefreshCw size={12} className="opacity-60" /> Flip Card
                 </button>
             </div>
-        </>
+        </div>
     );
 };
 

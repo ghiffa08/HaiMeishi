@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Contact &amp; Epilogue - EMAKIMONO.IO</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&amp;family=Shippori+Mincho:wght@400;500;600;700;800&amp;family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed-variant": "#8e130c",
+                      "on-primary-container": "#8b827b",
+                      "on-error": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-surface": "#1d1c17",
+                      "surface-container-high": "#ece8e0",
+                      "ancient-tan": "#9A8D7A",
+                      "secondary-container": "#fc6451",
+                      "circuit-blue": "#1A62D4",
+                      "primary-fixed": "#ece0d8",
+                      "on-secondary-container": "#650001",
+                      "tertiary-fixed-dim": "#b0c6ff",
+                      "primary": "#000000",
+                      "on-error-container": "#93000a",
+                      "on-tertiary-fixed": "#001944",
+                      "surface-container": "#f2ede5",
+                      "hanko-red": "#C0392B",
+                      "tertiary-container": "#001944",
+                      "on-primary-fixed-variant": "#4c463f",
+                      "primary-container": "#201b15",
+                      "outline": "#7e766e",
+                      "error": "#ba1a1a",
+                      "inverse-primary": "#cfc5bc",
+                      "on-primary-fixed": "#201b15",
+                      "on-secondary-fixed": "#410000",
+                      "secondary-fixed-dim": "#ffb4a9",
+                      "secondary-fixed": "#ffdad5",
+                      "error-container": "#ffdad6",
+                      "on-secondary": "#ffffff",
+                      "surface-container-highest": "#e7e2da",
+                      "primary-fixed-dim": "#cfc5bc",
+                      "sumi-ink": "#1A1510",
+                      "on-tertiary-fixed-variant": "#00429a",
+                      "background": "#fef9f1",
+                      "inverse-surface": "#32302b",
+                      "surface-tint": "#655d56",
+                      "on-tertiary-container": "#447ff2",
+                      "surface-container-low": "#f8f3eb",
+                      "tertiary-fixed": "#d9e2ff",
+                      "outline-variant": "#cfc5bc",
+                      "on-primary": "#ffffff",
+                      "inverse-on-surface": "#f5f0e8",
+                      "surface-dim": "#ded9d2",
+                      "surface-bright": "#fef9f1",
+                      "on-tertiary": "#ffffff",
+                      "on-surface-variant": "#4c463f",
+                      "washi-paper": "#F5F0E8",
+                      "surface": "#fef9f1",
+                      "secondary": "#b02d21",
+                      "on-background": "#1d1c17",
+                      "tertiary": "#000000",
+                      "surface-variant": "#e7e2da"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "grid-unit": "80px",
+                      "stack-lg": "32px",
+                      "stack-md": "16px",
+                      "margin-page": "40px",
+                      "stack-sm": "8px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "data-label": [
+                              "DM Mono"
+                      ],
+                      "accent-italic": [
+                              "ebGaramond"
+                      ],
+                      "data-value": [
+                              "DM Mono"
+                      ],
+                      "body-lg": [
+                              "Shippori Mincho"
+                      ],
+                      "headline-xl": [
+                              "Shippori Mincho"
+                      ],
+                      "headline-lg": [
+                              "Shippori Mincho"
+                      ],
+                      "headline-lg-mobile": [
+                              "Shippori Mincho"
+                      ],
+                      "body-md": [
+                              "Shippori Mincho"
+                      ]
+              },
+              "fontSize": {
+                      "data-label": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "accent-italic": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "data-value": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "20px",
+                              {
+                                      "lineHeight": "1.7",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-xl": [
+                              "64px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg": [
+                              "40px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        /* Grain overlay */
+        .bg-grain {
+            position: relative;
+        }
+        .bg-grain::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            opacity: 0.05;
+            z-index: 50;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+        /* Vertical Grid Lines */
+        .bg-grid-lines {
+            background-image: linear-gradient(to right, theme('colors.ancient-tan') 1px, transparent 1px);
+            background-size: theme('spacing.grid-unit') 100%;
+            background-position: center;
+        }
+        /* Stipple Shadow */
+        .stipple-shadow {
+            position: relative;
+        }
+        .stipple-shadow::after {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            right: -6px;
+            bottom: -6px;
+            background-image: radial-gradient(theme('colors.sumi-ink') 1px, transparent 1px);
+            background-size: 3px 3px;
+            z-index: -1;
+            opacity: 0.2;
+        }
+    </style>
+</head>
+<body class="bg-washi-paper bg-grain text-sumi-ink min-h-screen flex flex-col antialiased selection:bg-hanko-red selection:text-washi-paper relative">
+<!-- Global Grid Lines Overlay (behind content) -->
+<div class="fixed inset-0 pointer-events-none bg-grid-lines opacity-20 z-[-1]"></div>
+<!-- TopAppBar -->
+<header class="docked full-width top-0 sticky bg-washi-paper/90 dark:bg-sumi-ink/90 border-b border-ancient-tan flat no shadows flex justify-between items-center w-full px-margin-page py-4 backdrop-blur-sm z-30">
+<div class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-sumi-ink tracking-tighter">EMAKIMONO.IO</div>
+<nav class="hidden md:flex gap-stack-lg items-center">
+<a class="text-on-surface-variant hover:text-primary transition-colors hover:bg-primary-fixed/10 dark:hover:bg-primary-container/20 px-4 py-2 font-data-label text-data-label" href="#">Archive</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors hover:bg-primary-fixed/10 dark:hover:bg-primary-container/20 px-4 py-2 font-data-label text-data-label" href="#">Specs</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors hover:bg-primary-fixed/10 dark:hover:bg-primary-container/20 px-4 py-2 font-data-label text-data-label" href="#">Hardware</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors hover:bg-primary-fixed/10 dark:hover:bg-primary-container/20 px-4 py-2 font-data-label text-data-label" href="#">Research</a>
+<div class="h-6 w-px bg-ancient-tan mx-2"></div>
+<button class="font-data-label text-data-label text-hanko-red hover:bg-primary-fixed/10 dark:hover:bg-primary-container/20 px-2 py-1">JP/EN</button>
+</nav>
+<button class="md:hidden text-sumi-ink">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</header>
+<!-- SideNavBar (Contact Active) -->
+<nav class="hidden md:flex fixed right-8 top-1/2 -translate-y-1/2 flex-col items-center gap-stack-lg z-40 bg-transparent">
+<div class="flex flex-col items-center mb-stack-lg gap-1 border-b border-ancient-tan pb-4">
+<div class="font-headline-lg text-hanko-red mb-2 border border-hanko-red p-1 leading-none">K</div>
+<div class="font-data-label text-data-label text-sumi-ink tracking-widest uppercase">K. TANAKA</div>
+<div class="font-data-label text-data-label text-ancient-tan text-[10px]">IoT systems</div>
+</div>
+<a class="text-ancient-tan [writing-mode:vertical-rl] py-4 hover:text-sumi-ink transition-all hover:translate-x-[-2px] flex items-center gap-2 group font-data-label text-data-label" href="#">
+<span class="material-symbols-outlined text-[16px] group-hover:text-sumi-ink transition-colors" data-icon="person_niche">PersonSimple</span>
+<span>Bio</span>
+</a>
+<a class="text-ancient-tan [writing-mode:vertical-rl] py-4 hover:text-sumi-ink transition-all hover:translate-x-[-2px] flex items-center gap-2 group font-data-label text-data-label" href="#">
+<span class="material-symbols-outlined text-[16px] group-hover:text-sumi-ink transition-colors" data-icon="settings_input_component">settings_input_component</span>
+<span>Circuits</span>
+</a>
+<a class="text-ancient-tan [writing-mode:vertical-rl] py-4 hover:text-sumi-ink transition-all hover:translate-x-[-2px] flex items-center gap-2 group font-data-label text-data-label" href="#">
+<span class="material-symbols-outlined text-[16px] group-hover:text-sumi-ink transition-colors" data-icon="terminal">terminal</span>
+<span>Protocols</span>
+</a>
+<a class="text-hanko-red font-bold [writing-mode:vertical-rl] py-4 border-r border-hanko-red pr-2 scale-110 flex items-center gap-2 font-data-label text-data-label" href="#">
+<span class="material-symbols-outlined text-[16px] text-hanko-red" data-icon="mail">mail</span>
+<span>Contact</span>
+</a>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col md:flex-row px-margin-page md:pr-[120px] py-[100px] relative">
+<!-- Left Title Sidebar -->
+<aside class="hidden md:block w-[120px] flex-shrink-0 relative">
+<div class="sticky top-[150px] [writing-mode:vertical-rl] flex items-center gap-6">
+<span class="font-headline-lg text-headline-lg text-sumi-ink tracking-widest">結び ・ Contact &amp; Epilogue</span>
+<div class="w-px h-32 bg-ancient-tan mt-8"></div>
+<span class="font-data-label text-data-label text-ancient-tan tracking-widest uppercase mt-4">其の四 ・ Epilogue</span>
+</div>
+</aside>
+<!-- Form & Content Area -->
+<section class="flex-grow max-w-4xl mx-auto flex flex-col gap-16 md:pl-margin-page relative">
+<div class="md:hidden font-headline-lg-mobile text-headline-lg-mobile mb-8 border-l-4 border-hanko-red pl-4">
+                結び ・ Contact &amp; Epilogue
+            </div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+<!-- Contact Form -->
+<div class="bg-washi-paper border border-ancient-tan p-8 stipple-shadow flex flex-col gap-8">
+<div class="font-data-label text-data-label text-hanko-red tracking-widest uppercase border-b border-ancient-tan pb-2 mb-4 flex justify-between items-center">
+<span>Transmission Protocol</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="cell_tower">cell_tower</span>
+</div>
+<form class="flex flex-col gap-8">
+<div class="flex flex-col gap-2">
+<label class="font-data-label text-data-label text-ancient-tan" for="name">Identifier / Name</label>
+<input class="bg-transparent border-0 border-b border-ancient-tan focus:ring-0 focus:border-sumi-ink px-0 py-2 font-body-md text-body-md text-sumi-ink transition-colors placeholder:text-ancient-tan/50" id="name" placeholder="e.g. John Doe" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-data-label text-data-label text-ancient-tan" for="email">Signal Route / Email</label>
+<input class="bg-transparent border-0 border-b border-ancient-tan focus:ring-0 focus:border-sumi-ink px-0 py-2 font-body-md text-body-md text-sumi-ink transition-colors placeholder:text-ancient-tan/50" id="email" placeholder="route@network.com" type="email"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-data-label text-data-label text-ancient-tan" for="message">Payload / Message</label>
+<div class="relative mt-2">
+<!-- Horizontal guide lines for writing area -->
+<div class="absolute inset-0 pointer-events-none" style="background-image: repeating-linear-gradient(transparent, transparent 31px, theme('colors.ancient-tan') 31px, theme('colors.ancient-tan') 32px); opacity: 0.3; top: 2px;"></div>
+<textarea class="bg-transparent border-0 focus:ring-0 px-0 py-1 font-body-lg text-body-lg text-sumi-ink w-full resize-none leading-[32px]" id="message" placeholder="Begin transmission..." rows="5"></textarea>
+</div>
+</div>
+<button class="group relative mt-4 self-start border border-sumi-ink bg-transparent px-8 py-3 overflow-hidden transition-colors hover:border-circuit-blue" type="button">
+<div class="absolute inset-0 bg-sumi-ink/5 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+<span class="relative font-body-md text-body-md text-sumi-ink group-hover:text-circuit-blue transition-colors flex items-center gap-3">
+                                Dispatch <span class="material-symbols-outlined text-[18px]" data-icon="send">send</span>
+</span>
+</button>
+</form>
+</div>
+<!-- Epilogue & Socials -->
+<div class="flex flex-col justify-between h-full gap-16">
+<div class="flex flex-col gap-8">
+<div class="font-data-label text-data-label text-ancient-tan tracking-widest uppercase border-b border-ancient-tan pb-2">Network Nodes</div>
+<div class="flex flex-col gap-4">
+<a class="group flex items-center justify-between border-b border-ancient-tan/30 pb-4 hover:border-sumi-ink transition-colors" href="#">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-sumi-ink group-hover:text-circuit-blue transition-colors">GitHub</span>
+<span class="font-data-label text-data-label text-ancient-tan group-hover:text-circuit-blue transition-colors">/ktng-sys</span>
+</a>
+<a class="group flex items-center justify-between border-b border-ancient-tan/30 pb-4 hover:border-sumi-ink transition-colors" href="#">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-sumi-ink group-hover:text-circuit-blue transition-colors">LinkedIn</span>
+<span class="font-data-label text-data-label text-ancient-tan group-hover:text-circuit-blue transition-colors">/in/ktanaka</span>
+</a>
+</div>
+</div>
+<div class="relative p-8 border border-ancient-tan bg-washi-paper">
+<div class="absolute -top-3 -left-3 w-6 h-6 border-t-2 border-l-2 border-hanko-red"></div>
+<div class="absolute -bottom-3 -right-3 w-6 h-6 border-b-2 border-r-2 border-hanko-red"></div>
+<p class="font-accent-italic text-accent-italic text-sumi-ink/80 text-center leading-relaxed">
+                            "Thank you for unraveling this digital journey. Let us build the future with the precision of a circuit and the soul of a craftsman."
+                        </p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-stack-lg px-margin-page flex flex-col md:flex-row justify-between items-center gap-stack-md bg-washi-paper dark:bg-sumi-ink border-t border-ancient-tan flat no shadows relative z-20">
+<div class="flex items-center gap-4">
+<div class="font-headline-lg text-headline-lg text-hanko-red border-2 border-hanko-red p-1 leading-none transform -rotate-6 select-none shadow-[2px_2px_0px_rgba(26,21,16,0.2)]">
+                了
+            </div>
+<span class="font-data-value text-data-value text-on-surface">© 2024 PRECISION &amp; TRADITION. ALL RIGHTS RESERVED.</span>
+</div>
+<div class="flex gap-stack-lg">
+<a class="font-data-value text-data-value text-on-surface-variant hover:text-hanko-red hover:underline decoration-hanko-red decoration-2 hover:tracking-widest transition-all duration-500" href="#">Schematics</a>
+<a class="font-data-value text-data-value text-on-surface-variant hover:text-hanko-red hover:underline decoration-hanko-red decoration-2 hover:tracking-widest transition-all duration-500" href="#">GitHub</a>
+<a class="font-data-value text-data-value text-on-surface-variant hover:text-hanko-red hover:underline decoration-hanko-red decoration-2 hover:tracking-widest transition-all duration-500" href="#">LinkedIn</a>
+</div>
+</footer>
+</body></html>
